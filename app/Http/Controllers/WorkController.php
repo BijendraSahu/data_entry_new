@@ -30,6 +30,22 @@ class WorkController extends Controller
         }
     }
 
+    public function open_work()
+    {
+        if ($_SESSION['admin_master']->role == 'Super Admin') {
+            $work_data = SchoolData::where(['IS_OPEN' => 1, 'IS_WORK_DONE' => 0])->paginate(8);
+            return view('work.open_work')->with(['work_data' => $work_data]);
+        }
+    }
+
+    public function re_open_work()
+    {
+        if ($_SESSION['admin_master']->role == 'Super Admin') {
+            $record = DB::select("update datasample set IS_OPEN = 0 WHERE IS_OPEN = 1 and IS_WORK_DONE = 0");
+            return redirect('admin')->with('message', 'Work has now been open for all users');
+        }
+    }
+
     public function my_works()
     {
         $work_data = SchoolData::where(['IS_WORK_DONE' => 1, 'WORK_DONE_BY' => $_SESSION['admin_master']['id']])->paginate(8);
@@ -62,16 +78,15 @@ class WorkController extends Controller
 //        echo "Done";
         $work_data = SchoolData::where(['IS_OPEN' => 0])->first();
         if (isset($work_data)) {
+
             $data = SchoolData::find($work_data->ID);
             $data->IS_OPEN = 1;
             $data->save();
-            if (file_exists($work_data->IMAGE_PATH)) {
+            if (!file_exists(url('') . '/' . $work_data->IMAGE_PATH)) {
                 return view('work.create_work')->with(['work_data' => $work_data]);
             } else {
                 $this->start_work();
             }
-        } else {
-            return view('start_work');
         }
     }
 

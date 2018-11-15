@@ -5,7 +5,7 @@
     }
 @endphp
 
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -673,15 +673,23 @@
 
 <body class="body_color" id="page_body">
 <div id="myloaderid" class="loader"></div>
+<?php $loginUser = \App\LoginModel::find($_SESSION['admin_master']['id']); ?>
+
 <nav class="top_navigationbar" id="fixed_nav">
     <div class="dash_menuicon" onclick="ResponsiveMenuClick();"><i class="mdi mdi-menu"></i>
     </div>
     <div class="option-container">
 
         <div class="user-info glo_menuclick">
-            {{-- <img src="images/Male_default.png" class="profile_img">--}}
-            {{-- <span>{{ucfirst($_SESSION['admin_master']['username'])}}</span>
-            <span class="caret"></span> --}}
+            @if(isset($LohinUser))
+                <img src="{{url('u_img').'/'.$loginUser->image}}"
+                     class="profile_img"/>
+            @else
+                <img class="profile_img"
+                     src="{{url('assets/images/Male_default.png')}}"/>
+            @endif
+            <span>{{ucfirst($_SESSION['admin_master']['username'])}}</span>
+            <span class="caret"></span>
             <div class="menu_basic_popup menu_popup_setting effect scale0">
                 <div class="menu_popup_containner padding0">
                     {{-- <div class="menu_popup_settingrow effect">
@@ -713,152 +721,9 @@
             </div>
         </div>
 
-        {{--<div class="menu_basic_block glo_menuclick">--}}
-        {{--<span class="mdi mdi-earth"></span>--}}
-        {{--<div class="total_count">5</div>--}}
-        {{--<div class="menu_basic_popup effect scale0 notification_popbox">--}}
-        {{--<div class="menu_popup_head">Notification</div>--}}
-        {{--<div class="menu_popup_containner">--}}
-        {{--<div class="menu_popup_row">--}}
-        {{--<div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}"--}}
-        {{--class="profile_img"></div>--}}
-        {{--<div class="menu_popup_text">--}}
-        {{--<p class="popup_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,--}}
-        {{--sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim--}}
-        {{--veniam,</p>--}}
-        {{--<div class="popup_iconwithtime"><i class="mdi mdi-calendar-clock global_color"></i>--}}
-        {{--28-Dec-2017--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="menu_popup_row">--}}
-        {{--<div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}"--}}
-        {{--class="profile_img"></div>--}}
-        {{--<div class="menu_popup_text">--}}
-        {{--<p class="popup_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,--}}
-        {{--sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim--}}
-        {{--veniam,</p>--}}
-        {{--<div class="popup_iconwithtime"><i class="mdi mdi-calendar-clock global_color"></i>--}}
-        {{--28-Dec-2017--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="menu_popup_showall">--}}
-        {{--<a href="NotificationList.php"> See All </a>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="menu_basic_block glo_menuclick">--}}
-        {{--<span class="mdi mdi-email"></span>--}}
-        {{--<div class="total_count" id="spanShortList">2</div>--}}
-        {{--<div class="menu_basic_popup effect scale0 massage_popbox">--}}
-        {{--<div class="menu_popup_head">Messages</div>--}}
-        {{--<div class="menu_popup_containner style-scroll">--}}
-        {{--<div class="menu_popup_row">--}}
-        {{--<div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}"--}}
-        {{--class="profile_img"></div>--}}
-        {{--<div class="menu_popup_massage">--}}
-        {{--<div class="popup_user_namewithdate">--}}
-        {{--Pinku Kesharwani--}}
-        {{--<div class="popup_iconwithtime_right"><i--}}
-        {{--class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="popup_user_massagetxt">--}}
-        {{--Lorem ipsum dolor sit amet, consectetur--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="menu_popup_row">--}}
-        {{--<div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}"--}}
-        {{--class="profile_img"></div>--}}
-        {{--<div class="menu_popup_massage">--}}
-        {{--<div class="popup_user_namewithdate">--}}
-        {{--Pinku Kesharwani--}}
-        {{--<div class="popup_iconwithtime_right"><i--}}
-        {{--class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="popup_user_massagetxt">--}}
-        {{--Lorem ipsum dolor sit amet, consectetur--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="menu_popup_row">--}}
-        {{--<div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}"--}}
-        {{--class="profile_img"></div>--}}
-        {{--<div class="menu_popup_massage">--}}
-        {{--<div class="popup_user_namewithdate">--}}
-        {{--Pinku Kesharwani--}}
-        {{--<div class="popup_iconwithtime_right"><i--}}
-        {{--class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="popup_user_massagetxt">--}}
-        {{--Lorem ipsum dolor sit amet, consectetur--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="menu_popup_row">--}}
-        {{--<div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}"--}}
-        {{--class="profile_img"></div>--}}
-        {{--<div class="menu_popup_massage">--}}
-        {{--<div class="popup_user_namewithdate">--}}
-        {{--Pinku Kesharwani--}}
-        {{--<div class="popup_iconwithtime_right"><i--}}
-        {{--class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="popup_user_massagetxt">--}}
-        {{--Lorem ipsum dolor sit amet, consectetur--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="menu_popup_row">--}}
-        {{--<div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}"--}}
-        {{--class="profile_img"></div>--}}
-        {{--<div class="menu_popup_massage">--}}
-        {{--<div class="popup_user_namewithdate">--}}
-        {{--Pinku Kesharwani--}}
-        {{--<div class="popup_iconwithtime_right"><i--}}
-        {{--class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="popup_user_massagetxt">--}}
-        {{--Lorem ipsum dolor sit amet, consectetur--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="menu_popup_row">--}}
-        {{--<div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}"--}}
-        {{--class="profile_img"></div>--}}
-        {{--<div class="menu_popup_massage">--}}
-        {{--<div class="popup_user_namewithdate">--}}
-        {{--Pinku Kesharwani--}}
-        {{--<div class="popup_iconwithtime_right"><i--}}
-        {{--class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="popup_user_massagetxt">--}}
-        {{--Lorem ipsum dolor sit amet, consectetur adipiscing elit,--}}
-        {{--sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim--}}
-        {{--veniam,--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="menu_popup_showall">--}}
-        {{--<a href="#"> See All </a>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="expand_block" onclick="toggleFullScreen(document.body)">
-            <i class="mdi mdi-arrow-expand-all expand_on"></i>
-            <i class="mdi mdi-arrow-collapse-all expand_off"></i>
-        </div>--}}
     </div>
 </nav>
+
 <div class="modal fade" id="myModal1" role="dialog">
     <div class="modal-dialog modal-lg">
 
@@ -942,7 +807,6 @@
         </div>
     </div>
 </div>
-<?php $loginUser = \App\LoginModel::find($_SESSION['admin_master']['id']); ?>
 
 <aside class="dash_sidemenu pcb">
     <div class="shift_iconbox abc" onclick="MenuShift(this);">
@@ -967,6 +831,11 @@
         </div>
     </div>
     <ul class="list-group dash_menu_ul">
+
+        @php
+            $open_work_count = \App\SchoolData::where(['IS_OPEN' => 1, 'IS_WORK_DONE' => 0])->count();
+        @endphp
+
         @if($loginUser->role == 'Super Admin')
             <li class="right_menu_li">
                 <a href="{{url('admin')}}">
@@ -990,6 +859,12 @@
                 <a href="{{url('works')}}">
                     <i class="dash_arrow mdi mdi-clipboard-plus global_color"></i>
                     <span class="aside_menu_txt">All Works</span>
+                </a>
+            </li>
+            <li class="right_menu_li">
+                <a href="{{url('open_work')}}">
+                    <i class="dash_arrow mdi mdi-clipboard-plus global_color"></i>
+                    <span class="aside_menu_txt">Open Works <span class="badge">{{$open_work_count>0?$open_work_count:''}}</span></span>
                 </a>
             </li>
             <li class="right_menu_li">
@@ -1024,19 +899,7 @@
                     <span class="aside_menu_txt">Work Done</span>
                 </a>
             </li>
-            <li class="right_menu_li">
-                <a href="{{url('report')}}">
-                    <i class="dash_arrow mdi mdi-clipboard-plus global_color"></i>
-                    <span class="aside_menu_txt">report</span>
-                </a>
-            </li>
-            <li class="right_menu_li">
-                <a href="{{url('report_d')}}">
-                    {{--     <a href="{{url('/userlist')}}">--}}
-                    <i class="dash_arrow mdi mdi-account-multiple global_color"></i>
-                    <span class="aside_menu_txt">Work Reports</span>
-                </a>
-            </li>
+
             {{--<li class="right_menu_li" onclick="MenuClick(this);">--}}
             {{--<a href="javascript:;">--}}
             {{--<i class="dash_arrow mdi mdi-sitemap  global_color"></i>--}}

@@ -38,17 +38,16 @@
                         <div class="col-sm-12">
                             {{--<div class='form-group'>--}}
                             <div class="image_container" id="image_box">
-                                {{--                               @if((file_exists( public_path().$work_data->IMAGE_PATH)))--}}
+                                {{--                                @if(!file_exists(url('').'/'.$work_data->IMAGE_PATH))--}}
                                 <img src="{{url('').'/'.$work_data->IMAGE_PATH}}" alt="" class="ads_img">
                                 {{--@else--}}
-                                {{--                                   @php(header("Location: /start_work"))--}}
-
+                                {{--                                    @php(header("Location: /start_work"))--}}
                                 {{--@endif--}}
-
                                 {{--<img src="data:image/png;base64,{{ chunk_split(base64_encode($work_data->IMG)) }}" alt="" class="ads_img">--}}
                                 <input type="hidden" value="{{$work_data->ID}}" name="data_id" id="data_id">
                             </div>
                             {{--</div>--}}
+
                             <div class="textbox_div">
                                 <div class='form-group'>
                                     {!! Form::label('Name', 'Candidate Name *', ['class' => 'col-sm-4 control-label']) !!}

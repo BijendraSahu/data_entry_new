@@ -102,7 +102,7 @@
                                     <td>{{$user_master->contact}}</td>
                                     <td>{{$user_master->username}}</td>
                                     <td>{{$user_master->role}}</td>
-                                    <td>{{$work_count}}</td>
+                                    <td>{{$work_count}} {{--<a href="#" class="label label-primary" --}}{{--onclick="pay_now();"--}}{{-->Pay Now</a>--}}</td>
                                     {{--<td>{{$user_master->paytm_contact}}</td>--}}
                                     {{--<td>{{$user_master->points}}</td>--}}
                                     {{--<td>--}}

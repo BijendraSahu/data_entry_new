@@ -46,6 +46,9 @@ Route::get('start_work', 'WorkController@start_work');
 Route::get('my_works', 'WorkController@my_works');
 Route::post('save_work', 'WorkController@save_work');
 
+Route::get('open_work', 'WorkController@open_work');
+Route::get('re_open_work', 'WorkController@re_open_work');
+
 Route::get('gain_type_points', 'AdminController@gain_type_points');
 Route::get('gain_type_points/{id}/edit', 'AdminController@edit_gain_type_points');
 Route::post('gain_type_points/{id}', 'AdminController@update_gain_type_points');

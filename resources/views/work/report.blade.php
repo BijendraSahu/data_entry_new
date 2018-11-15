@@ -50,9 +50,10 @@
                                 <td>{{$obj->totalworkdone }}</td>
                                 <td>
                                     {{--<button class="btn btn-info" onclick="get_full_report(this,'{{$obj->id}}')"><i--}}
-                                                {{--class="mdi mdi-view-module"></i></button>--}}
+                                    {{--class="mdi mdi-view-module"></i></button>--}}
 
-                                    <a target="_blank" class="btn btn-info" href="{{url('view_done_report').'/'.$obj->id}}"><i
+                                    <a target="_blank" class="btn btn-info"
+                                       href="{{url("export_data.php?district_name=$obj->districtname&district_id=$obj->id")}}"><i
                                                 class="mdi mdi-view-module"></i></a>
                                 </td>
                             </tr>

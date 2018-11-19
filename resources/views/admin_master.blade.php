@@ -1118,7 +1118,7 @@
 @if($errors->any())
     <script type="text/javascript">
         setTimeout(function () {
-            warning_noti("Warning!", "{{$errors->first()}}", "info");
+            warning_noti("{{$errors->first()}}");
         }, 500);
     </script>
 @endif

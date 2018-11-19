@@ -238,7 +238,7 @@
             if (data == 'success') {
                 window.location.href = '{{url('/admin')}}';
             } else if (data == 'unautherised') {
-                warning_noti("Your account is not activated yet please contact to administrator to activate your account");
+                warning_noti("Your account is not activated yet please contact to administrator(9329641500) to activate your account");
             } else {
                 $('#errorsec').addClass("alert alert-danger").html('Username or Password Invalid');
 

@@ -120,13 +120,13 @@ class AdminController extends Controller
             $reg->is_active = 0;
             $file = $request->file('file_path');
             if ($request->file('file_path') != null) {
-                $destination_path = 'u_img/';
+                $destination_path = 'admin_pic/';
                 $filename = str_random(6) . '_' . $file->getClientOriginalName();
                 $file->move($destination_path, $filename);
                 $reg->image = $destination_path . $filename;
             }
             $reg->save();
-            return redirect('/')->with('message', 'Registration has been successful you can login now');
+            return redirect('/')->with('message', 'Registration has been successful please contact to administrator(9329641500) to activate your account');
         }
 
     }
@@ -220,14 +220,12 @@ class AdminController extends Controller
     public function change_account()
     {
         if ($_SESSION['admin_master'] != null) {
-            $data = LoginModel::find(1);
-            $data->point_to_rupee = request('rupee');
+            $data = LoginModel::find($_SESSION['admin_master']->id);
+            $data->name = request('name');
+            $data->email = request('email');
+            $data->contact = request('contact');
+            $data->paytm_no = request('paytmno');
             $data->save();
-            $bank = BankDetails::find(1);
-            $bank->account_no = request('account_no');
-            $bank->bank_name = request('bank_name');
-            $bank->ifsc_code = request('ifsc');
-            $bank->save();
             return 1;
         } else {
             return redirect('/adminlogin');

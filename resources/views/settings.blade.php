@@ -1,17 +1,17 @@
 {{--<ul class="nav nav-tabs nav-justified indigo" role="tablist">--}}
-    {{--<li class="nav-item active">--}}
-        {{--<a class="nav-link" data-toggle="tab" onclick="first();" href="#" role="tab"><i--}}
-                    {{--class="fa fa-user basicicon_margin"></i>--}}
-            {{--Profile Settings</a>--}}
-    {{--</li>--}}
-    {{--<li class="nav-item">
-        <a class="nav-link" data-toggle="tab" onclick="second();" href="#aditya" role="tab"><i
-                    class="fa fa-unlock-alt basicicon_margin"></i> Change Password</a>
-    </li>--}}
-    {{--<li class="nav-item">--}}
-    {{--<a class="nav-link" data-toggle="tab" onclick="third();" href="#adiya" role="tab"><i class="fa fa-users basicicon_margin"></i>--}}
-    {{--Role Manager</a>--}}
-    {{--</li>--}}
+{{--<li class="nav-item active">--}}
+{{--<a class="nav-link" data-toggle="tab" onclick="first();" href="#" role="tab"><i--}}
+{{--class="fa fa-user basicicon_margin"></i>--}}
+{{--Profile Settings</a>--}}
+{{--</li>--}}
+{{--<li class="nav-item">
+    <a class="nav-link" data-toggle="tab" onclick="second();" href="#aditya" role="tab"><i
+                class="fa fa-unlock-alt basicicon_margin"></i> Change Password</a>
+</li>--}}
+{{--<li class="nav-item">--}}
+{{--<a class="nav-link" data-toggle="tab" onclick="third();" href="#adiya" role="tab"><i class="fa fa-users basicicon_margin"></i>--}}
+{{--Role Manager</a>--}}
+{{--</li>--}}
 {{--</ul>--}}
 
 <style type="text/css">
@@ -132,15 +132,26 @@
         <div class="col-sm-3 textbox_containner">
 
             <label>Name</label>
-            <input type="text" name="name" id="name" placeholder="Enter Your Name"
-                   class="form-control required"/>
+            <input type="text" name="name" id="uname" placeholder="Enter Your Name"
+                   class="form-control required" value="{{$data->name}}"/>
             <p></p>
             <p></p>
             <label>Email</label>
             <input type="text" name="email" placeholder="Enter Your Email" id="uemail"
-                   class="form-control required"/>
+                   class="form-control required" value="{{$data->email}}"/>
             <p></p>
-            <input type="button" value="Update" onclick="Accountchange();" class="btn btn-info">
+            <p></p>
+            <label>Contact</label>
+            <input type="text" name="Contact" placeholder="Enter Your Contact" id="uContact"
+                   class="form-control numberOnly required" value="{{$data->contact}}" maxlength="10" />
+            <p></p>
+
+            <p></p>
+            <label>Paytm No</label>
+            <input type="text" name="Contact" placeholder="Enter Your Paytm No" maxlength="10" id="uPaytm"
+                   class="form-control numberOnly required" value="{{$data->paytm_no}}"/>
+            <p></p>
+            <input type="button" value="Update" onclick="Accountchange();" class="btn btn-success">
 
 
         </div>
@@ -231,30 +242,40 @@
     }
 
     function Accountchange() {
-        var rupee = $('#rupee').val();
-        var account_no = $('#account_no').val();
-        var bank_name = $('#bank_name').val();
-        var ifsc = $('#ifsc').val();
-        $.get('{{url('account')}}', {
-            rupee: rupee,
-            account_no: account_no,
-            bank_name: bank_name,
-            ifsc: ifsc
-        }, function (data) {
-            //console.log(data);
-            if (data == '1') {
-                $('#myModal').modal('hide');
-                swal({
-                    title: "Thankyou!",
-                    text: "You details has been updated",
-                    icon: "success",
-                    button: "Ok"
-                });
-            }
-            else {
-                $('#almes').html(data);
-            }
+        var name = $('#uname').val();
+        var email = $('#uemail').val();
+        var contact = $('#uContact').val();
+        var paytmno = $('#uPaytm').val();
+        if (name == '') {
+            warning_noti("Please enter your name");
+        } else if (email == '') {
+            warning_noti("Please enter your email");
+        } else if (contact == '') {
+            warning_noti("Please enter your contact no");
+        } else if (paytmno == '') {
+            warning_noti("Please enter your paytm no");
+        } else {
+            $.get('{{url('account')}}', {
+                name: name,
+                email: email,
+                contact: contact,
+                paytmno: paytmno
+            }, function (data) {
+                //console.log(data);
+                if (data == '1') {
+                    $('#myModal').modal('hide');
+                    swal({
+                        title: "Thankyou!",
+                        text: "You details has been updated",
+                        icon: "success",
+                        button: "Ok"
+                    });
+                }
+                else {
+                    $('#almes').html(data);
+                }
 
-        });
+            });
+        }
     }
 </script>

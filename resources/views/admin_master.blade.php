@@ -561,7 +561,7 @@
     <script type="text/javascript">
         function settings() {
             var id = 2;
-            $('#modal_title').html('Admin Setting');
+            $('#modal_title').html('Setting');
             $('#mybody').html('');
             $('#myfooter').html('');
             $('#myheader').html('Product view  <button type="button" class="close" onclick="aaoneeche();"  data-dismiss="modal">&times;</button>');
@@ -673,7 +673,7 @@
 
 <body class="body_color" id="page_body">
 <div id="myloaderid" class="loader"></div>
-<?php $loginUser = \App\LoginModel::find($_SESSION['admin_master']['id']); ?>
+@php $LoginUser = \App\LoginModel::find($_SESSION['admin_master']['id']); @endphp
 
 <nav class="top_navigationbar" id="fixed_nav">
     <div class="dash_menuicon" onclick="ResponsiveMenuClick();"><i class="mdi mdi-menu"></i>
@@ -681,8 +681,8 @@
     <div class="option-container">
 
         <div class="user-info glo_menuclick">
-            @if(isset($LohinUser))
-                <img src="{{url('u_img').'/'.$loginUser->image}}"
+            @if(isset($LoginUser))
+                <img src="{{url('admin_pic').'/'.$LoginUser->id.'/'.$LoginUser->image}}"
                      class="profile_img"/>
             @else
                 <img class="profile_img"
@@ -767,29 +767,29 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<div id="inbox">
-    <div class="fab btn-group show-on-hover dropup">
-        <div data-toggle="tooltip" data-placement="left" title="Compose">
-            <button type="button" class="btn btn-danger btn-io dropdown-toggle" data-toggle="dropdown">
-            <span class="fa-stack fa-2x">
-                <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
-                <i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>
-                <i class="fa fa-pencil fa-stack-1x fa-inverse fab-secondary"></i>
-            </span>
-            </button>
-        </div>
-        <ul class="dropdown-menu dropdown-menu-right" role="menu">
-            <li style="display: none;"><a href="#" data-toggle="tooltip" data-placement="left" title="FullView"><i
-                            class="mdi mdi-fullscreen"></i></a></li>
-            <li><a href="#" onclick="toggleFullScreen(document.body);" data-toggle="tooltip" data-placement="left"
-                   title="FullView"><i class="mdi mdi-fullscreen"></i></a></li>
-            <li><a href="#" onclick="settings();" data-toggle="tooltip" data-placement="left" title="Settings"><i
-                            class="mdi mdi-account-settings-variant"></i></a></li>
-            <li><a href="{{url('/admin')}}" data-toggle="tooltip" data-placement="left" title="Dashboard"><i
-                            class="mdi mdi-speedometer"></i></a></li>
-        </ul>
-    </div>
-</div>
+{{--<div id="inbox">--}}
+    {{--<div class="fab btn-group show-on-hover dropup">--}}
+        {{--<div data-toggle="tooltip" data-placement="left" title="Compose">--}}
+            {{--<button type="button" class="btn btn-danger btn-io dropdown-toggle" data-toggle="dropdown">--}}
+            {{--<span class="fa-stack fa-2x">--}}
+                {{--<i class="fa fa-circle fa-stack-2x fab-backdrop"></i>--}}
+                {{--<i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>--}}
+                {{--<i class="fa fa-pencil fa-stack-1x fa-inverse fab-secondary"></i>--}}
+            {{--</span>--}}
+            {{--</button>--}}
+        {{--</div>--}}
+        {{--<ul class="dropdown-menu dropdown-menu-right" role="menu">--}}
+            {{--<li style="display: none;"><a href="#" data-toggle="tooltip" data-placement="left" title="FullView"><i--}}
+                            {{--class="mdi mdi-fullscreen"></i></a></li>--}}
+            {{--<li><a href="#" onclick="toggleFullScreen(document.body);" data-toggle="tooltip" data-placement="left"--}}
+                   {{--title="FullView"><i class="mdi mdi-fullscreen"></i></a></li>--}}
+            {{--<li><a href="#" onclick="settings();" data-toggle="tooltip" data-placement="left" title="Settings"><i--}}
+                            {{--class="mdi mdi-account-settings-variant"></i></a></li>--}}
+            {{--<li><a href="{{url('/admin')}}" data-toggle="tooltip" data-placement="left" title="Dashboard"><i--}}
+                            {{--class="mdi mdi-speedometer"></i></a></li>--}}
+        {{--</ul>--}}
+    {{--</div>--}}
+{{--</div>--}}
 
 <div class="modal fade" id="myModalsmall" role="dialog">
     <div class="modal-dialog modal-sm">
@@ -818,8 +818,8 @@
         <img src="{{url('assets/images/short.png')}}" class="small_aside_icon"/>
     </div>
     <div class="dash_emp_details">
-        @if(isset($LohinUser))
-            <img src="{{url('u_img').'/'.$loginUser->image}}"
+        @if(isset($LoginUser))
+            <img src="{{url('admin_pic').'/'.$LoginUser->id.'/'.$LoginUser->image}}"
                  class="dash_profile_img"/>
         @else
             <img class="dash_profile_img"
@@ -836,7 +836,7 @@
             $open_work_count = \App\SchoolData::where(['IS_OPEN' => 1, 'IS_WORK_DONE' => 0])->count();
         @endphp
 
-        @if($loginUser->role == 'Super Admin')
+        @if($LoginUser->role == 'Super Admin')
             <li class="right_menu_li">
                 <a href="{{url('admin')}}">
                     {{--     <a href="{{url('/userlist')}}">--}}
@@ -880,7 +880,7 @@
                     <span class="aside_menu_txt">Work Reports</span>
                 </a>
             </li>
-        @elseif($loginUser->role == 'Group Admin')
+        @elseif($LoginUser->role == 'Group Admin')
             <li class="right_menu_li">
                 <a href="{{url('admin')}}">
                     {{--     <a href="{{url('/userlist')}}">--}}

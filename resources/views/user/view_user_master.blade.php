@@ -3,6 +3,7 @@
 @section('title','List of Users')
 
 @section('content')
+
     {{--@if(session()->has('message'))--}}
     {{--<div class="alert alert-success">--}}
     {{--{{ session()->get('message') }}--}}
@@ -35,6 +36,7 @@
                             <th>Username</th>
                             <th>Role</th>
                             <th>Work Count</th>
+                            <th>Group Admin</th>
                             <th>Active Status</th>
                             <th>Joining Date</th>
                         </tr>
@@ -59,18 +61,18 @@
                                     <td class="hidden">{{$user_master->id}}</td>
                                     <td id="{{$user_master->id}}">
                                         <a href="#" id="{{$user_master->id}}" onclick="edit_user(this)"
-                                           class="btn btn-sm btn-default edit-user_"
+                                           class="btn btn-xs btn-default edit-user_"
                                            title="Edit User" data-toggle="tooltip" data-placement="top">
                                             <span class="fa fa-pencil"></span></a>
                                         @if($user_master->is_active == 1)
                                             <a href="#" id="{{$user_master->id}}" onclick="inactive_user(this)"
-                                               class="btn btn-sm btn-danger"
+                                               class="btn btn-xs btn-danger"
                                                title="Mark as inactive" data-toggle="tooltip"
                                                data-placement="top">
                                                 <span class="mdi mdi-delete"></span></a>
                                         @else
                                             <a href="#" id="{{$user_master->id}}" onclick="active_user(this)"
-                                               class="btn btn-sm btn-primary"
+                                               class="btn btn-xs btn-primary"
                                                title="Mark as active" data-toggle="tooltip" data-placement="top">
                                                 <span class="mdi mdi-check"></span></a>
 
@@ -102,7 +104,7 @@
                                     <td>{{$user_master->contact}}</td>
                                     <td>{{$user_master->username}}</td>
                                     <td>{{$user_master->role}}</td>
-                                    <td>{{$work_count}} {{--<a href="#" class="label label-primary" --}}{{--onclick="pay_now();"--}}{{-->Pay Now</a>--}}</td>
+                                    <td>{{$work_count}} {{--<a href="#" class="label label-primary" --}}{{--onclick="pay_now();"--}}{{-->Pay Now</a>--}}</td>   <td>{{isset($user_master->activated_by)?$user_master->activate_by_name->name:'-'}}</td>
                                     {{--<td>{{$user_master->paytm_contact}}</td>--}}
                                     {{--<td>{{$user_master->points}}</td>--}}
                                     {{--<td>--}}

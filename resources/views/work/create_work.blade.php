@@ -40,6 +40,7 @@
                             <div class="image_container" id="image_box">
                                 {{--                                @if(!file_exists(url('').'/'.$work_data->IMAGE_PATH))--}}
                                 <img src="{{url('').'/'.$work_data->IMAGE_PATH}}" alt="" class="ads_img">
+                                {{--<img src="{{url('').'/'.$work_data->IMAGE_PATH}}" onerror="if (this.src != 'error.jpg') this.src = 'error.jpg';">--}}
                                 {{--@else--}}
                                 {{--                                    @php(header("Location: /start_work"))--}}
                                 {{--@endif--}}
@@ -78,7 +79,64 @@
     </div>
     <br/>
     <script>
-        $(".textWithSpace").keypress(function () {
+        {{--function checkImageExists(imageUrl, callBack) {--}}
+            {{--var imageData = new Image();--}}
+            {{--imageData.onload = function() {--}}
+                {{--callBack(true);--}}
+            {{--};--}}
+            {{--imageData.onerror = function() {--}}
+                {{--callBack(false);--}}
+            {{--};--}}
+            {{--imageData.src = imageUrl;--}}
+        {{--}--}}
+        {{--// image url that want to check--}}
+        {{--var imageFile = '{{url("$work_data->IMAGE_PATH")}}';--}}
+
+        {{--//Here pass image url like imageFile in function to check image exist or not.--}}
+
+        {{--checkImageExists(imageFile, function(existsImage) {--}}
+            {{--if(existsImage == true) {--}}
+{{--// image exist--}}
+                {{--alert('yes');--}}
+            {{--}--}}
+            {{--else {--}}
+                {{--alert('no');--}}
+{{--// image not exist--}}
+            {{--}--}}
+        {{--});--}}
+
+        {{--$(document).ready(function () {--}}
+           {{--//checkImage('{{url("$work_data->IMAGE_PATH")}}')--}}
+       {{--});--}}
+       {{--function checkImage(imageSrc) {--}}
+           {{--var img = new Image();--}}
+           {{--alert(imageSrc);--}}
+           {{--try {--}}
+               {{--img.src = imageSrc;--}}
+               {{--alert('Yes');--}}
+{{--//                return true;--}}
+           {{--} catch(err) {--}}
+{{--//                return false;--}}
+               {{--alert('Not');--}}
+           {{--}--}}
+       {{--}--}}
+       {{--function doesFileExist(urlToFile) {--}}
+           {{--alert(urlToFile);--}}
+           {{--var xhr = new XMLHttpRequest();--}}
+           {{--xhr.open('HEAD', urlToFile, false);--}}
+           {{--xhr.send();--}}
+
+           {{--if (xhr.status == "404") {--}}
+               {{--alert('Not');--}}
+{{--//                console.log("File doesn't exist");--}}
+               {{--return false;--}}
+           {{--} else {--}}
+               {{--alert('Yes');--}}
+{{--//                console.log("File exists");--}}
+               {{--return true;--}}
+           {{--}--}}
+       {{--}--}}
+       $(".textWithSpace").keypress(function () {
             if (event.keyCode == 8 || event.keyCode == 32) return true;
             if (!((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122))) return false;
         });

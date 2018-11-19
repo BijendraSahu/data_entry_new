@@ -3217,3 +3217,6 @@
 }
 
 /*---------------Footer responsive menu End*/
+table.dataTable {
+    font-size: 12px;
+}

@@ -35,7 +35,7 @@
                                 <tr>
                                     <td id="{{$work_dat->ID}}">
 
-                                        <a href="#" id="{{$work_dat->SRID}}" onclick="view_work(this)"
+                                        <a href="#" id="{{$work_dat->ID}}" onclick="view_work(this)"
                                            class="btn btn-sm btn-primary"
                                            title="View Details" data-toggle="tooltip" data-placement="top">
                                             <span class="mdi mdi-eye"></span></a>

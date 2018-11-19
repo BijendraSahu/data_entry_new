@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\SchoolData;
 use App\SchoolValue;
+use App\UserMaster;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,11 +23,14 @@ class WorkController extends Controller
     {
         if ($_SESSION['admin_master']->role == 'Super Admin') {
             $work_data = SchoolData::where(['IS_WORK_DONE' => 1])->paginate(8);
-            return view('work.view_work')->with(['work_data' => $work_data]);
+            $users = UserMaster::getActiveUserMaster();
+            $work_count = SchoolData::where(['IS_WORK_DONE' => 1])->count();
+            return view('work.view_work')->with(['work_data' => $work_data, 'users' => $users,'work_count'=>$work_count]);
         } else {
             $login_id = $_SESSION['admin_master']->id;
+            $users = UserMaster::getActiveUserMaster();
             $work_data = DB::select("SELECT * FROM `datasample` WHERE WORK_DONE_BY in (SELECT id from users WHERE users.activated_by = '$login_id')");
-            return view('work.view_work')->with(['work_data' => $work_data, 'group' => '1']);
+            return view('work.view_work')->with(['work_data' => $work_data, 'group' => '1', 'users' => $users, 'work_count' => count($work_data)]);
         }
     }
 
@@ -41,7 +45,7 @@ class WorkController extends Controller
     public function re_open_work()
     {
         if ($_SESSION['admin_master']->role == 'Super Admin') {
-            $record = DB::select("update datasample set IS_OPEN = 0 WHERE IS_OPEN = 1 and IS_WORK_DONE = 0");
+            $record = DB::select("update datasample set IS_OPEN = 0 WHERE IS_OPEN = 1 and IS_WORK_DONE = 0  ");
             return redirect('admin')->with('message', 'Work has now been open for all users');
         }
     }
@@ -49,7 +53,16 @@ class WorkController extends Controller
     public function my_works()
     {
         $work_data = SchoolData::where(['IS_WORK_DONE' => 1, 'WORK_DONE_BY' => $_SESSION['admin_master']['id']])->paginate(8);
-        return view('work.view_work')->with(['work_data' => $work_data]);
+        $work_count = SchoolData::where(['IS_WORK_DONE' => 1, 'WORK_DONE_BY' => $_SESSION['admin_master']['id']])->count();
+        return view('work.view_work')->with(['work_data' => $work_data, 'work_count' => $work_count]);
+    }
+
+    public function user_works($user_id)
+    {
+        $work_data = SchoolData::where(['IS_WORK_DONE' => 1, 'WORK_DONE_BY' => $user_id])->paginate(8);
+        $work_count = SchoolData::where(['IS_WORK_DONE' => 1, 'WORK_DONE_BY' => $user_id])->count();
+        $users = UserMaster::getActiveUserMaster();
+        return view('work.view_work')->with(['work_data' => $work_data, 'users' => $users, 'user_id' => $user_id, 'work_count' => $work_count]);
     }
 
     public function view_work_done()
@@ -76,9 +89,8 @@ class WorkController extends Controller
 //            $work_datum->save();
 //        }
 //        echo "Done";
-        $work_data = SchoolData::where(['IS_OPEN' => 0])->first();
+        $work_data = SchoolData::where(['IS_OPEN' => 0])->orderBy('ID', 'ASC')->first();
         if (isset($work_data)) {
-
             $data = SchoolData::find($work_data->ID);
             $data->IS_OPEN = 1;
             $data->save();
@@ -87,6 +99,30 @@ class WorkController extends Controller
             } else {
                 $this->start_work();
             }
+//            $baseurl = "http://localhost:2000/$work_data->IMAGE_PATH";
+//            echo $baseurl . $file_url;
+//            if(\Illuminate\Support\Facades\File::exists($baseurl)) {
+//                dd('yes');
+//            } else {
+//                dd('no');
+//            }
+//            if (is_file($baseurl . $file_url) && file_exists($baseurl . $file_url)) {
+//                echo "The file does not exist";
+//            } else {
+//                echo "The file exists. URL:" . url('') . '/' . $work_data->IMAGE_PATH;
+//            }
+//
+//            if (!file_exists(url('') . '/' . $work_data->IMAGE_PATH)) {
+//                return view('work.create_work')->with(['work_data' => $work_data]);
+//            } else {
+//                $this->start_work();
+//            }
+//
+//            if (!file_exists(url('') . '/' . $work_data->IMAGE_PATH)) {
+//                return view('work.create_work')->with(['work_data' => $work_data]);
+//            } else {
+//                $this->start_work();
+//            }
         }
     }
 

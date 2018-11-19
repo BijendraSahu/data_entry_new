@@ -14,84 +14,6 @@
     {{--</li>--}}
 {{--</ul>--}}
 
-<div class="nav_containner container" id="first" style="display: block;">
-    @if($data->id == 1)
-        <div class="col-sm-3 img">
-            @if(isset($data))
-                <img src="{{url('u_img').'/'.$data->image}}"
-                     class="img_profile"/>
-            @else
-                <img class="img_profile"
-                     src="{{url('assets/images/Male_default.png')}}"/>
-            @endif
-        </div>
-        <div class="col-sm-3 textbox_containner linemy">
-            <form action="{{url('/myadminpost')}}" method="post" id="adminpostForm" enctype="multipart/form-data">
-                <label>Name</label>
-                <input type="text" name="name" id="name" placeholder="Enter Your Name"
-                       value="{{$_SESSION['admin_master']['username']}}" class="form-control" disabled/>
-                <p></p>
-                <label>Upload Profile Picture</label>
-                <input type="file" name="file" id="file" class="form-control"/>
-
-                <p></p>
-                <input type="submit" class="btn btn-info">
-            </form>
-        </div>
-        <div class="col-sm-3 textbox_containner">
-
-            <label>Old Password</label>
-            <input type="password" name="old_password" id="opass" placeholder="Enter Your Old Password"
-                   class="form-control required"/>
-            <p id="almes"></p>
-            <p></p>
-            <label>New Password</label>
-            <input type="password" name="new_password" placeholder="Enter Your New Password" id="npass"
-                   class="form-control required"/>
-            <p></p>
-            <input type="button" value="Change" onclick="passchange();" class="btn btn-info">
-
-
-        </div>
-    @else
-        <div class="col-sm-4 img">
-            <img src="{{url('admin_pic').'/'.$data->id.'/'.$data->image}}" class="img_profile"/>
-        </div>
-        <div class="col-sm-4 textbox_containner linemy">
-            <form action="{{url('/myadminpost')}}" method="post" id="adminpostForm" enctype="multipart/form-data">
-                <label>Name</label>
-                <input type="text" name="name" id="name" placeholder="Enter Your Name"
-                       value="{{$_SESSION['admin_master']['username']}}" class="form-control" disabled/>
-                <p></p>
-                <label>Upload Profile Picture</label>
-                <input type="file" name="file" id="file" class="form-control"/>
-
-                <p></p>
-                <input type="submit" class="btn btn-info">
-            </form>
-        </div>
-        <div class="col-sm-4 textbox_containner">
-
-            <label>Old Password</label>
-            <input type="password" name="old_password" id="opass" placeholder="Enter Your Old Password"
-                   class="form-control required"/>
-            <p id="almes"></p>
-            <p></p>
-            <label>New Password</label>
-            <input type="password" name="new_password" placeholder="Enter Your New Password" id="npass"
-                   class="form-control required"/>
-            <p></p>
-            <input type="button" value="Change" onclick="passchange();" class="btn btn-info">
-
-
-        </div>
-    @endif
-</div>
-{{--<div class="nav_containner" id="second">
-</div>--}}
-<div class="nav_containner" id="third">
-</div>
-
 <style type="text/css">
 
     .linemy {
@@ -136,6 +58,99 @@
         margin-right: 5px;
     }
 </style>
+<div class="nav_containner container" id="first" style="display: block;">
+    @if($data->id == 1)
+        <div class="col-sm-3 img">
+            @if(isset($data))
+                <img src="{{url('admin_pic').'/'.$data->id.'/'.$data->image}}"
+                     class="img_profile"/>
+            @else
+                <img class="img_profile"
+                     src="{{url('assets/images/Male_default.png')}}"/>
+            @endif
+        </div>
+        <div class="col-sm-3 textbox_containner linemy">
+            <form action="{{url('/myadminpost')}}" method="post" id="adminpostForm" enctype="multipart/form-data">
+                <label>Name</label>
+                <input type="text" name="name" id="name" placeholder="Enter Your Name"
+                       value="{{$_SESSION['admin_master']['username']}}" class="form-control" disabled/>
+                <p></p>
+                <label>Upload Profile Picture</label>
+                <input type="file" name="file" id="file" class="form-control"/>
+
+                <p></p>
+                <input type="submit" class="btn btn-info">
+            </form>
+        </div>
+        <div class="col-sm-3 textbox_containner">
+
+            <label>Old Password</label>
+            <input type="password" name="old_password" id="opass" placeholder="Enter Your Old Password"
+                   class="form-control required"/>
+            <p id="almes"></p>
+            <p></p>
+            <label>New Password</label>
+            <input type="password" name="new_password" placeholder="Enter Your New Password" id="npass"
+                   class="form-control required"/>
+            <p></p>
+            <input type="button" value="Change" onclick="passchange();" class="btn btn-info">
+
+
+        </div>
+    @else
+        <div class="col-sm-3 img">
+            <img src="{{url('admin_pic').'/'.$data->id.'/'.$data->image}}" class="img_profile"/>
+        </div>
+        <div class="col-sm-3 textbox_containner linemy">
+            <form action="{{url('/myadminpost')}}" method="post" id="adminpostForm" enctype="multipart/form-data">
+                <label>Name</label>
+                <input type="text" name="name" id="name" placeholder="Enter Your Name"
+                       value="{{$_SESSION['admin_master']['username']}}" class="form-control" disabled/>
+                <p></p>
+                <label>Upload Profile Picture</label>
+                <input type="file" name="file" id="file" class="form-control"/>
+
+                <p></p>
+                <input type="submit" class="btn btn-info">
+            </form>
+        </div>
+        <div class="col-sm-3 textbox_containner">
+
+            <label>Old Password</label>
+            <input type="password" name="old_password" id="opass" placeholder="Enter Your Old Password"
+                   class="form-control required"/>
+            <p id="almes"></p>
+            <p></p>
+            <label>New Password</label>
+            <input type="password" name="new_password" placeholder="Enter Your New Password" id="npass"
+                   class="form-control required"/>
+            <p></p>
+            <input type="button" value="Change" onclick="passchange();" class="btn btn-info">
+
+
+        </div>
+        <div class="col-sm-3 textbox_containner">
+
+            <label>Name</label>
+            <input type="text" name="name" id="name" placeholder="Enter Your Name"
+                   class="form-control required"/>
+            <p></p>
+            <p></p>
+            <label>Email</label>
+            <input type="text" name="email" placeholder="Enter Your Email" id="uemail"
+                   class="form-control required"/>
+            <p></p>
+            <input type="button" value="Update" onclick="Accountchange();" class="btn btn-info">
+
+
+        </div>
+    @endif
+</div>
+{{--<div class="nav_containner" id="second">
+</div>--}}
+<div class="nav_containner" id="third">
+</div>
+
 <script type="text/javascript">
     function first() {
         $("#first").show();

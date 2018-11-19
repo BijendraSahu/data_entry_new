@@ -96,7 +96,7 @@ CASE WHEN LENGTH(f97 ) > 1 THEN '' ELSE f97 END Q97,
 CASE WHEN LENGTH(f98 ) > 1 THEN '' ELSE f98 END Q98,
 CASE WHEN LENGTH(f99 ) > 1 THEN '' ELSE f99 END Q99,
 CASE WHEN LENGTH(f100 ) > 1 THEN '' ELSE f100 END Q100,
-IMAGE_PATH as 'Front side Image'   
+IMAGE_PATH as 'Front side Image', WORK_DONE_BY AS 'USER_ID'  
 FROM datasample where DISTRICTID=$district_id");
 
     $field = mysqli_num_fields($query);

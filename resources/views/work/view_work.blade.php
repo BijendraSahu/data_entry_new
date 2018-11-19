@@ -23,11 +23,31 @@
         <div class="col-sm-12 col-md-12 col-xs-12">
             <div class="dash_boxcontainner white_boxlist">
                 <div class="upper_basic_heading"><span class="white_dash_head_txt">
-                         List of Works
+
                         {{--<button class="btn btn-default pull-right btn-sm" onclick="exporttoexcel();"><i--}}
                         {{--class="mdi mdi-download"></i> Download Excel</button>--}}
                         {{--<a href="#" class="btn btn-default btnSet add-user pull-right">--}}
                         {{--<span class="fa fa-plus"></span>&nbsp;Create New User</a>--}}
+                        <div class="col-sm-12 col-md-12 col-xs-12">
+                            <div class="col-sm-5">
+                                List of Works(Total Work : {{isset($work_count)?$work_count:'-'}})
+                            </div>
+                            @if(isset($users))
+                                <div class="col-sm-5">
+                        <select name="user_work" class="form-control" id="user_work">
+                            <option value="0">All</option>
+                            @foreach($users as $user)
+                                <option value="{{$user->id}}" {{isset($user_id)? $user->id==$user_id?'selected':'':''}} >{{$user->name}}{{'-'.$user->contact}}</option>
+                            @endforeach
+                        </select>
+                                </div>
+                                <div class="col-sm-2">
+                                <button class="btn btn-default pull-right btn-sm" onclick="user_work();"><i
+                                            class="mdi mdi-account-search"></i> Search</button>
+                            </div>
+                            @endif
+                        </div>
+
                       </span>
                     <table id="{{isset($group)?'example':''}}" class="table table-bordered dataTable table-striped"
                            cellspacing="0"
@@ -63,7 +83,7 @@
                                         {{--data-placement="top">--}}
                                         {{--<span class="mdi mdi-delete"></span></a>--}}
                                         {{--@else--}}
-                                        <a href="#" id="{{$work_dat->SRID}}" onclick="view_work(this)"
+                                        <a href="#" id="{{$work_dat->ID}}" onclick="view_work(this)"
                                            class="btn btn-sm btn-primary"
                                            title="View Details" data-toggle="tooltip" data-placement="top">
                                             <span class="mdi mdi-eye"></span></a>
@@ -72,7 +92,7 @@
                                     </td>
                                     <td>{{$work_dat->ID}}</td>
                                     {{--<td>{{$work_dat->rc}}</td>--}}
-                                    
+
                                     <td>{{$work_dat->FRMID}}</td>
                                     <td>{{$work_dat->f103}}</td>
                                     <td>{{$work_dat->f104}}</td>
@@ -89,39 +109,15 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <?php
-                                             $output='';
-                                             if(isset($_SESSION['admin_master']['id'])){
-                                               $iid=$_SESSION['admin_master']['id'];
-                                               }else{
-                                                 $iid=$work_dat->WORK_DONE_BY;
-                                             }
-                                               if($iid!=''){
-
-                                                   $row = DB::table('users')->where('id', $iid)->first();
-                                                   if(isset($row)){
-                                                  $a_id=$row->activated_by;
-
-                                               //$actvated=DB::table('users')->where('id', $a_id)->first();
-                                               $actvated=DB::table('users')->where('id', $a_id)->get();
-
-                                            $output=$actvated;
-                                            }
-//                                                   }
-                                              
-                                            }else{
-                                                   $output="self";
-                                               }
-                                       ?>
-
-                                        @if(isset($row))
-                                    <span id="name">
-                                        {{$row->name}}
+                                        @php
+                                            if ($work_dat->WORK_DONE_BY != 0)
+                                                $work_done_by = \App\UserMaster::find($work_dat->WORK_DONE_BY);
+                                        @endphp
+                                        @if(isset($work_done_by))
+                                            {{isset($work_done_by->activated_by)?$work_done_by->activate_by_name->name:'-'}}
                                         @else
-                                            self
-                                            @endif
-                                    </span>
 
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -136,6 +132,14 @@
         </div>
     </div>
     <script>
+        function user_work() {
+            var user_id = $('#user_work').val();
+            if (user_id > 0) {
+                window.open('{{url('user_works').'/'}}' + user_id, '_blank');
+            } else {
+                window.location.href = '{{url('work_done')}}';
+            }
+        }
         function view_work(dis) {
             $('#myModal').modal('show');
             $('#modal_title').html('View Work');

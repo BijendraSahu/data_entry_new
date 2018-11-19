@@ -25,9 +25,9 @@ class UserMaster extends Model
     {
 //        return $query->where('is_active', '=', 1)->get();
         if ($_SESSION['admin_master']->role == 'Super Admin') {
-            return $query->where(['role' => 'Data Entry User'])->get();
+            return $query->where(['role' => 'Data Entry User'])->orderBy('name', 'asc')->get();
         } else {
-            return $query->where(['role' => 'Data Entry User', 'activated_by' => $_SESSION['admin_master']->id])->get();
+            return $query->where(['role' => 'Data Entry User', 'activated_by' => $_SESSION['admin_master']->id])->orderBy('name', 'asc')->get();
         }
     }
 
@@ -58,9 +58,9 @@ class UserMaster extends Model
         return $this->belongsTo('App\RoleMaster');
     }
 
-    public function activate_by()
+    public function activate_by_name()
     {
-        return $this->belongsTo('App\AdminModel', 'activated_by');
+        return $this->belongsTo('App\UserMaster', 'activated_by');
     }
 
     public static function checkcontact($c)

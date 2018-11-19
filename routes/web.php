@@ -44,6 +44,7 @@ Route::get('work_done', 'WorkController@work_done');
 Route::get('view_work_done', 'WorkController@view_work_done');
 Route::get('start_work', 'WorkController@start_work');
 Route::get('my_works', 'WorkController@my_works');
+Route::get('user_works/{id}', 'WorkController@user_works');
 Route::post('save_work', 'WorkController@save_work');
 
 Route::get('open_work', 'WorkController@open_work');

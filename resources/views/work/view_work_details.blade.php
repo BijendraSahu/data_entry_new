@@ -4,7 +4,9 @@
         height: 100%;
         width: 100%;
     }
-
+    .textUpper {
+        text-transform: uppercase;
+    }
     .image_container {
         width: 100%;
         overflow: auto;
@@ -44,14 +46,14 @@
             {{--</div>--}}
             {{--</div>--}}
             <input type="hidden" value="{{$work_data->ID}}" name="data_id" id="data_id">
-            <input type="hidden" value="1" name="edit_data_id" id="data_id">
+            {{--<input type="hidden" value="{{$work_data->ID}}" name="edit_data_id" id="data_id">--}}
             <div class="textbox_div">
                 <div class='form-group'>
                     {!! Form::label('Name', 'Candidate Name *', ['class' => 'col-sm-4 control-label']) !!}
                     <div class='col-sm-8'>
                         {!! Form::label('Name', isset($work_data)?$work_data->f103:'') !!}
                         <input type="text" placeholder="Candidate Name*" maxlength="50" name="s_name"
-                               class="form-control required textWithSpace textUpper" id="s_name"
+                               class="form-control required textWithSpace textUpper" autocomplete="off" id="s_name"
                                value="{{isset($work_data)?$work_data->f103:''}}">
                     </div>
                 </div>
@@ -59,7 +61,7 @@
                     {!! Form::label('Username', 'Father Name *', ['class' => 'col-sm-4 control-label']) !!}
                     <div class='col-sm-8'>
                         {!! Form::label('Username', isset($work_data)?$work_data->f104:'') !!}
-                        <input placeholder="Father Name*" maxlength="50" name="f_name"
+                        <input placeholder="Father Name*" maxlength="50" name="f_name" autocomplete="off"
                                class="form-control required textWithSpace textUpper"
                                value="{{isset($work_data)?$work_data->f104:''}}" id="f_name">
                     </div>

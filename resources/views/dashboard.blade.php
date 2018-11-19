@@ -36,11 +36,11 @@
             @php
                 $users =\App\UserMaster::getActiveUserMaster();
                 $admins = \App\UserMaster::getActiveAdmin();
-                $works = \App\SchoolData::where(['IS_WORK_DONE' => 0])->count();
+                $works = \App\SchoolData::where(['IS_WORK_DONE' => 0, 'IS_OPEN' => 0])->count();
             @endphp
             @if ($_SESSION['admin_master']['role'] == 'Super Admin' || $_SESSION['admin_master']['role'] == 'Quality Control')
                 @php
-                    $workdone = \App\SchoolData::where(['IS_WORK_DONE' => 1])->count();
+                    $workdone = \App\SchoolData::where(['IS_WORK_DONE' => 1, 'IS_OPEN' => 1])->count();
                 @endphp
             @elseif ($_SESSION['admin_master']['role'] == 'Group Admin')
                 @php
@@ -50,7 +50,7 @@
             @else
                 @php
                     $login_id = $_SESSION['admin_master']['id'];
-                        $workdone = \App\SchoolData::where(['IS_WORK_DONE' => 1,'WORK_DONE_BY'=>$login_id])->count();
+                        $workdone = \App\SchoolData::where(['IS_WORK_DONE' => 1, 'IS_OPEN' => 1,'WORK_DONE_BY'=>$login_id])->count();
                 @endphp
             @endif
             @if($_SESSION['admin_master']['role'] == 'Super Admin')

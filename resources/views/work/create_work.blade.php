@@ -33,6 +33,7 @@
                     <span class="white_dash_head_txt">
                          Enter Given Image Details Below
                       </span>
+                    {{$work_data->IMAGE_PATH}}
                     @if(isset($work_data))
                         {!! Form::open(['url' => 'save_work', 'class' => 'form-horizontal', 'id'=>'save_work', 'files'=>true]) !!}
                         <div class="col-sm-12">

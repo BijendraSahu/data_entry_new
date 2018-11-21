@@ -56,9 +56,10 @@
                         <tr class="bg-info">
                             <th class="options">OPTIONS</th>
                             <th>WORK ID</th>
+                            <th>WORK_DATE</th>
                             <th>FRMID</th>
-                            <th>S Name</th>
-                            <th>F Name</th>
+                            <th>S NAME</th>
+                            <th>F NAME</th>
                             <th>FILENM</th>
                             <th>WORK_DONE_BY</th>
                             <th>GROUP ADMIN</th>
@@ -92,7 +93,7 @@
                                     </td>
                                     <td>{{$work_dat->ID}}</td>
                                     {{--<td>{{$work_dat->rc}}</td>--}}
-
+                                    <td> {{ date_format(date_create($work_dat->READTIME), "d-M-Y")}}</td>
                                     <td>{{$work_dat->FRMID}}</td>
                                     <td>{{$work_dat->f103}}</td>
                                     <td>{{$work_dat->f104}}</td>
@@ -131,7 +132,7 @@
             </div>
         </div>
     </div>
-    <script>
+    <script type="text/javascript">
         function user_work() {
             var user_id = $('#user_work').val();
             if (user_id > 0) {

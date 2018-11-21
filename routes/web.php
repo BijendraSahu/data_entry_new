@@ -36,6 +36,9 @@ Route::get('/logincheck', 'AdminController@logincheck');
 Route::get('registration', 'AdminController@registration');
 Route::post('registration', 'AdminController@save_registration');
 
+Route::get('date_wise_report', 'WorkController@date_wise_report');
+Route::post('date_wise_report', 'WorkController@search_date_wise_report');
+
 
 Route::get('insert_url_data', 'APIController@insert_url_data');
 
@@ -70,52 +73,6 @@ Route::get('user_master/{id}/inactivate', 'UserMasterController@inactivate');
 Route::get('user_master/{id}/empty', 'UserMasterController@empty_point');
 Route::get('user_master/{id}/remind', 'UserMasterController@reminder_points');
 /*********Users***********/
-
-/*********News***********/
-Route::resource('news', 'NewsController');
-Route::get('news/{id}/delete', 'NewsController@destroy');
-/*********News***********/
-
-/*********Gallery***********/
-Route::resource('gallery_master', 'GalleryController');
-Route::get('gallery/{id}/delete', 'GalleryController@destroy');
-/*********Gallery***********/
-
-
-/*********Key***********/
-Route::resource('key', 'UserKeyController');
-Route::get('key/{id}/activate', 'UserKeyController@activate');
-Route::get('key/{id}/inactivate', 'UserKeyController@inactivate');
-Route::get('key/{id}/empty', 'UserKeyController@emptyKey');
-Route::get('assign_key/{id}', 'UserKeyController@assign_key');
-/*********Key***********/
-
-/*********Advertisement***********/
-Route::resource('advertisement', 'AdvertisementController');
-Route::get('advertisement/{id}/activate', 'AdvertisementController@destroy');
-Route::get('advertisement/{id}/inactivate', 'AdvertisementController@inactivate');
-/*********Advertisement***********/
-
-
-/*********Franchise***********/
-Route::resource('franchise', 'FranchiseController');
-Route::get('franchise/{id}/activate', 'FranchiseController@activate');
-Route::get('franchise/{id}/inactivate', 'FranchiseController@destroy');
-Route::GET('franchise/{id}/resetPassword', 'FranchiseController@reset');
-Route::POST('reset_password', 'FranchiseController@reset_password');
-
-Route::get('franchise_keys', 'FranchiseController@franchise_keys');
-Route::post('assign_key/{id}', 'UserKeyController@assign_key_to_franchise');
-/*********Franchise***********/
-
-/*********Redeem***********/
-Route::get('redeem_requests', 'RedeemController@redeem_requests');
-Route::get('redeem_request/{id}/approve', 'RedeemController@approved');
-Route::get('redeem_request/{id}/reject', 'RedeemController@getreject');
-Route::post('redeem_request/{id}/reject', 'RedeemController@reject');
-/*********Redeem***********/
-
-
 
 
 /*************API******************/

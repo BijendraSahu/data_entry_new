@@ -5,7 +5,7 @@
     }
 @endphp
 
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -880,6 +880,13 @@
                     <span class="aside_menu_txt">Work Reports</span>
                 </a>
             </li>
+            <li class="right_menu_li">
+                <a href="{{url('date_wise_report')}}">
+                    {{--     <a href="{{url('/userlist')}}">--}}
+                    <i class="dash_arrow mdi mdi-account-multiple global_color"></i>
+                    <span class="aside_menu_txt">Date Wise Report</span>
+                </a>
+            </li>
         @elseif($LoginUser->role == 'Group Admin')
             <li class="right_menu_li">
                 <a href="{{url('admin')}}">
@@ -1103,6 +1110,7 @@
     });
 
 </script>
+<script src="{{url('assets/js/validation.js')}}"></script>
 
 @if(session()->has('message'))
     <script type="text/javascript">

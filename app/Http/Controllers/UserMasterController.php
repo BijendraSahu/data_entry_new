@@ -26,7 +26,7 @@ class UserMasterController extends Controller
         } else if (request('type') == 'admin') {
             return view('user.view_user_master')->with('user_masters', UserMaster::getActiveAdmin());
         } else {
-          return redirect('user_master?type=user');
+            return redirect('user_master?type=user');
         }
 
     }
@@ -160,9 +160,10 @@ class UserMasterController extends Controller
 //                $key->save();
         $user_master = UserMaster::find($id);
         $user_master->is_active = 1;
-        $user_master->is_block = 1;
+        $user_master->is_block = 0;
         $user_master->activated_by = $_SESSION['admin_master']->id;
         $user_master->save();
+//        DB::select("UPDATE `users` SET is_active = 1 and is_block = 0 WHERE activated_by = $id");
 //                $title = "Account Activation Successful";
 //                $message = "your account has been activated";
 //                if (isset($user_master->token)) {
@@ -184,6 +185,7 @@ class UserMasterController extends Controller
         $user_master->is_block = 1;
 //        $user_master->activated_by = $_SESSION['admin_master']->id;
         $user_master->save();
+        DB::select("UPDATE `users` SET is_active = 0 and is_block = 1 WHERE activated_by = $id");
         return redirect('user_master?type=user')->with('message', 'User is now inactivated...');
     }
 

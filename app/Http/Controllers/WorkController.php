@@ -25,7 +25,7 @@ class WorkController extends Controller
             $work_data = SchoolData::where(['IS_WORK_DONE' => 1])->paginate(8);
             $users = UserMaster::getActiveUserMaster();
             $work_count = SchoolData::where(['IS_WORK_DONE' => 1])->count();
-            return view('work.view_work')->with(['work_data' => $work_data, 'users' => $users,'work_count'=>$work_count]);
+            return view('work.view_work')->with(['work_data' => $work_data, 'users' => $users, 'work_count' => $work_count]);
         } else {
             $login_id = $_SESSION['admin_master']->id;
             $users = UserMaster::getActiveUserMaster();
@@ -144,4 +144,24 @@ class WorkController extends Controller
             return redirect('work_done')->with('message', 'Work has been updated');
         }
     }
+
+
+    public function date_wise_report()
+    {
+        $work_data = SchoolData::where(['IS_WORK_DONE' => 1])->paginate(8);
+        $users = UserMaster::getActiveUserMaster();
+        return view('reports.date_wise_report')->with(['work_data' => [], 'users' => $users, 'group' => 'group']);
+    }
+
+    public function search_date_wise_report()
+    {
+        $start_date = Carbon::parse(request('start_date'));
+        $end_date = Carbon::parse(request('end_date'))->format('Y-m-d');
+        $e_date = $end_date . ' 23:59:00';
+        $user_id = request('user_id');
+        $users = UserMaster::getActiveUserMaster();
+        $work_data = SchoolData::where('READTIME', '>=', $start_date)->where('READTIME', '<=', $e_date)->where(['IS_WORK_DONE' => 1, 'WORK_DONE_BY' => $user_id])->paginate(8);
+        return view('reports.date_wise_report')->with(['work_data' => $work_data, 'users' => $users]);
+    }
+//ALTER TABLE `datasample` CHANGE `READTIME` `READTIME` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP;
 }

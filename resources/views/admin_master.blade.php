@@ -18,21 +18,21 @@
     <link rel="stylesheet" href="{{url('assets/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/materialdesignicons.min.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/Dashboard.css')}}"/>
-    <link rel="stylesheet" href="{{url('assets/css/Autocomplete.css')}}"/>
+{{--    <link rel="stylesheet" href="{{url('assets/css/Autocomplete.css')}}"/>--}}
     <link rel="stylesheet" href="{{url('assets/css/my.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/media.css')}}"/>
     {{--    <link rel="stylesheet" href="{{url('assets/css/w3.css')}}"/>--}}
-    <link rel="stylesheet" href="{{url('assets/css/form-wizard-green.css')}}">
+{{--    <link rel="stylesheet" href="{{url('assets/css/form-wizard-green.css')}}">--}}
     <link rel="stylesheet" href="{{url('assets/css/dataTables.bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/text_editor.css')}}">
     <link href="{{ url('assets/css/datepicker.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
+    {{--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">--}}
     <script src="{{url('assets/js/jquery-3.2.1.min.js')}}"></script>
     <script src="{{url('assets/js/bootstrap.min.js')}}"></script>
     <script src="{{url('assets/js/Global.js')}}"></script>
     <script src="{{url('assets/js/text_editor.js')}}"></script>
-    <script src="{{url('assets/js/Autocomplete.js')}}"></script>
+{{--    <script src="{{url('assets/js/Autocomplete.js')}}"></script>--}}
     <script src="{{url('assets/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{url('assets/js/dataTables.bootstrap.min.js')}}"></script>
     {{---------------Notification---------------}}
@@ -96,7 +96,7 @@
              $('.Glo_autocomplete').select2();
              /!*----Header Tooltip--------*!/*/
             // Tooltip jquery
-            $('.Glo_autocomplete').select2();
+//            $('.Glo_autocomplete').select2();
             $('.grid_title').hover(function () {
                 var headtxt = $(this).text();
                 var left = $(this).offset().left;
@@ -887,6 +887,13 @@
                     <span class="aside_menu_txt">Date Wise Report</span>
                 </a>
             </li>
+            <li class="right_menu_li">
+                <a href="{{url('notificn')}}">
+                    {{--     <a href="{{url('/userlist')}}">--}}
+                    <i class="dash_arrow mdi mdi-email global_color"></i>
+                    <span class="aside_menu_txt">Notification</span>
+                </a>
+            </li>
         @elseif($LoginUser->role == 'Group Admin')
             <li class="right_menu_li">
                 <a href="{{url('admin')}}">
@@ -1071,6 +1078,36 @@
 
 </aside>
 @yield('content')
+
+<div class="modal popup_bgcolor" id="sucess_popup">
+    <div class="popup_box">
+        <div class="alert_popup success_bg">
+            <div class="popup_verified"><i class="mdi mdi-check"></i></div>
+            <h4 class="popup_mainhead">Notification!</h4>
+            <p class="popup-text dynamic_popuptxt">You have successfully Submit</p>
+        </div>
+        <div class="popup_submit">
+            <button class="popup_submitbtn success_bg sucess_btn" type="submit" onclick="HidePopoupMsg();">Ok
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal popup_bgcolor" id="conformation_popup">
+    <div class="popup_box">
+        <div class="alert_popup conformation_bg">
+            <div class="popup_verified"><i class="mdi mdi-close"></i></div>
+            <h4 class="popup_mainhead">Confirmation Massage!</h4>
+            <p class="popup-text dynamic_popuptxt">Do you really want to delete this record.t</p>
+        </div>
+        <div class="popup_submit">
+            <a class="popup_submitbtn conformation_bg conformation_btn" type="submit" id="ConfirmBtn"
+               onclick="HidePopoupMsg();">Yes
+            </a>
+            <a class="popup_submitbtn conformation_nobtn" type="submit" onclick="HidePopoupMsg();">No</a>
+        </div>
+    </div>
+</div>
 
 <div class="overlay_res" onclick="HideTranparent();"></div>
 <div id="snackbar">New Categories added Successfully</div>

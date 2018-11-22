@@ -64,6 +64,10 @@ Route::post('myadminpost', 'SettingController@myadminpost');
 
 
 /*********Users***********/
+Route::resource('notificn', 'NotificationController');
+Route::get('notification/{id}/delete', 'NotificationController@destroy');
+Route::get('notification/{id}/active', 'NotificationController@active');
+
 Route::resource('user_master', 'UserMasterController');
 Route::get('activate_with_key/{id}', 'UserMasterController@activate_with_key');
 Route::get('user_master/{id}/delete', 'UserMasterController@destroy');
@@ -72,6 +76,8 @@ Route::get('user_master/{id}/activate', 'UserMasterController@activate');
 Route::get('user_master/{id}/inactivate', 'UserMasterController@inactivate');
 Route::get('user_master/{id}/empty', 'UserMasterController@empty_point');
 Route::get('user_master/{id}/remind', 'UserMasterController@reminder_points');
+Route::post('send_notification', 'UserMasterController@send_notification');
+
 /*********Users***********/
 
 

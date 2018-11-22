@@ -85,7 +85,9 @@ class AdminController extends Controller
     {
         $username = request('username');
         $password = md5(request('password'));
+        $password_new = request('password');
         $user = LoginModel::where(['username' => $username, 'password' => $password])->first();
+        $user_new = LoginModel::where(['username' => $username, 'password' => $password_new])->first();
         if (isset($user)) {
             if ($user->is_active == 1) {
                 $_SESSION['admin_master'] = $user;
@@ -93,8 +95,14 @@ class AdminController extends Controller
             } else {
                 return 'unautherised';
             }
+        } else if (isset($user_new)) {
+            if ($user_new->is_active == 1) {
+                $_SESSION['admin_master'] = $user_new;
+                return 'success';
+            } else {
+                return 'unautherised';
+            }
         } else {
-            /*return redirect('/adminlogin')->withInput()->withErrors(array('message' => 'UserName or password Invalid'));*/
             return 'fail';
         }
     }
@@ -196,26 +204,6 @@ class AdminController extends Controller
         echo "Data: " . json_encode($response);
     }
 
-    public function gain_type_points()
-    {
-        $gain_types = GainTypePoints::get();
-        return view('gain_type_points.view_gain_type_points')->with(['gain_types' => $gain_types]);
-    }
-
-    public function edit_gain_type_points($id)
-    {
-        $gain_types = GainTypePoints::find($id);
-        return view('gain_type_points.edit_gain_type_points')->with(['gain_types' => $gain_types]);
-    }
-
-    public function update_gain_type_points($id)
-    {
-        $gain_types = GainTypePoints::find($id);
-        $gain_types->points = request('points');
-        $gain_types->save();
-        return redirect('gain_type_points')->with('message', 'Gain type point has been updated');
-
-    }
 
     public function change_account()
     {

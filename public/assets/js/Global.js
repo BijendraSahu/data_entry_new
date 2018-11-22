@@ -61,3 +61,14 @@ function LikeUnlike(dis) {
         $(dis).parent().find('.count_like').text(curr_count-1);
     }
 }
+function HidePopoupMsg() {
+    $('.popup_bgcolor').removeClass('show_popup');
+}
+function ShowSuccessPopupMsg(msg) {
+    $('#sucess_popup').find('.dynamic_popuptxt').text(msg);
+    $('#sucess_popup').addClass('show_popup');
+}
+function ShowConformationPopupMsg(msg) {
+    $('#conformation_popup').find('.dynamic_popuptxt').text(msg);
+    $('#conformation_popup').addClass('show_popup');
+}

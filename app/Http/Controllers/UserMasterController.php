@@ -216,4 +216,18 @@ class UserMasterController extends Controller
         if (is_null($user)) return true;
         else return false;
     }
+
+    public function send_notification()
+    {
+        $users_id = request('user_id');
+        if (request('user_id') != null) {
+            $user_id = implode(",", $users_id);
+            DB::select("UPDATE `users` SET is_show_notification = 1 WHERE id in ($user_id)");
+            DB::select("UPDATE `users` SET is_show_notification = 0 WHERE id NOT in ($user_id)");
+            return redirect('user_master?type=user')->with('message', 'Notification has been set for selected users');
+        } else {
+            DB::select("UPDATE `users` SET is_show_notification = 0 WHERE id NOT in (0)");
+            return redirect('user_master?type=user')->with('message', 'Notification has been set for selected users');
+        }
+    }
 }

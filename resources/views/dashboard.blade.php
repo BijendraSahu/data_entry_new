@@ -211,6 +211,18 @@
             @endif
         </div>
     </section>
+    {{------------Notification-------------------}}
+    @php
+        $noti = \App\Notification::find(1);
+    @endphp
+    @if($data->is_show_notification == 1 && $noti->is_active==1)
+        <script type="text/javascript">
+            setTimeout(function () {
+                ShowSuccessPopupMsg('{{$noti->notification}}');
+            }, 500);
+        </script>
+    @endif
+    {{------------Notification-------------------}}
 
     {{--////////////////////////////////////////////////*****Start Menu 3******//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--}}
 

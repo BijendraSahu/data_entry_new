@@ -42,10 +42,26 @@ class WorkController extends Controller
         }
     }
 
+    public function open_work_new()
+    {
+        if ($_SESSION['admin_master']->role == 'Super Admin') {
+            $work_data = SchoolData::where(['is_file_exist' => 1, 'IS_WORK_DONE' => 0])->paginate(8);
+            return view('work.open_work_new')->with(['work_data' => $work_data]);
+        }
+    }
+
     public function re_open_work()
     {
         if ($_SESSION['admin_master']->role == 'Super Admin') {
             $record = DB::select("update datasample set IS_OPEN = 0 WHERE IS_OPEN = 1 and IS_WORK_DONE = 0  ");
+            return redirect('admin')->with('message', 'Work has now been open for all users');
+        }
+    }
+
+    public function re_open_work_file()
+    {
+        if ($_SESSION['admin_master']->role == 'Super Admin') {
+            $record = DB::select("update datasample set is_file_exist = 0 WHERE is_file_exist = 1 and IS_WORK_DONE = 0");
             return redirect('admin')->with('message', 'Work has now been open for all users');
         }
     }
@@ -80,48 +96,31 @@ class WorkController extends Controller
 
     public function start_work()
     {
-//        $work_data = SchoolData::where(['IS_OPEN' => 0, 'IS_WORK_DONE' => 0])->get();
-//
-//        foreach ($work_data as $work_datum)
-//        {
-//            $d = '_';
-//            $work_datum->IMAGE_PATH = "BSGP_2018/1001/$work_datum->TESTID$d$work_datum->FRMID.jpg";
-//            $work_datum->save();
-//        }
-//        echo "Done";
-        $work_data = SchoolData::where(['IS_OPEN' => 0])->orderBy('ID', 'ASC')->first();
+        $work_data = SchoolData::where(['IS_OPEN' => 0, 'is_file_exist' => 0])->orderBy('ID', 'ASC')->first();
         if (isset($work_data)) {
-            $data = SchoolData::find($work_data->ID);
-            $data->IS_OPEN = 1;
-            $data->save();
-            if (!file_exists(url('') . '/' . $work_data->IMAGE_PATH)) {
+//            if (file_exists("http://data.mitradatacare.com/$work_data->IMAGE_PATH")) {
+                $data = SchoolData::find($work_data->ID);
+                $data->IS_OPEN = 1;
+                $data->save();
                 return view('work.create_work')->with(['work_data' => $work_data]);
-            } else {
-                $this->start_work();
-            }
-//            $baseurl = "http://localhost:2000/$work_data->IMAGE_PATH";
-//            echo $baseurl . $file_url;
-//            if(\Illuminate\Support\Facades\File::exists($baseurl)) {
-//                dd('yes');
 //            } else {
-//                dd('no');
+//                $data = SchoolData::find($work_data->ID);
+//                $data->IS_OPEN = 0;
+//                $data->is_file_exist = 1;
+//                $data->save();
+//                $this->start_work();
 //            }
-//            if (is_file($baseurl . $file_url) && file_exists($baseurl . $file_url)) {
-//                echo "The file does not exist";
-//            } else {
-//                echo "The file exists. URL:" . url('') . '/' . $work_data->IMAGE_PATH;
-//            }
-//
 //            if (!file_exists(url('') . '/' . $work_data->IMAGE_PATH)) {
 //                return view('work.create_work')->with(['work_data' => $work_data]);
 //            } else {
 //                $this->start_work();
 //            }
-//
-//            if (!file_exists(url('') . '/' . $work_data->IMAGE_PATH)) {
-//                return view('work.create_work')->with(['work_data' => $work_data]);
+//            if (file_exists(public_path("BSGP_2018/1001/2_1.jpg"))) {
+////            return view('work.create_work')->with(['work_data' => $work_data]);
+//                echo "exist";
 //            } else {
-//                $this->start_work();
+////                $this->start_work();
+//                echo "no";
 //            }
         }
     }
@@ -164,4 +163,6 @@ class WorkController extends Controller
         return view('reports.date_wise_report')->with(['work_data' => $work_data, 'users' => $users]);
     }
 //ALTER TABLE `datasample` CHANGE `READTIME` `READTIME` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP;
+//update datasample set IMAGE_PATH= replace(IMAGE_PATH,'\\','/')
+//ALTER TABLE `datasample` ADD `is_file_exist` BIT(1) NOT NULL DEFAULT b'0' AFTER `f106`;
 }

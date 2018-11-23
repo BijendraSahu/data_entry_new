@@ -38,22 +38,10 @@
                 $admins = \App\UserMaster::getActiveAdmin();
                 $works = \App\SchoolData::where(['IS_WORK_DONE' => 0, 'IS_OPEN' => 0])->count();
             @endphp
-            @if ($_SESSION['admin_master']['role'] == 'Super Admin' || $_SESSION['admin_master']['role'] == 'Quality Control')
-                @php
-                    $workdone = \App\SchoolData::where(['IS_WORK_DONE' => 1, 'IS_OPEN' => 1])->count();
-                @endphp
-            @elseif ($_SESSION['admin_master']['role'] == 'Group Admin')
-                @php
-                    $login_id = $_SESSION['admin_master']['id'];
-                        $workdone = DB::selectOne("SELECT COUNT(ID) as work_done FROM `datasample` WHERE WORK_DONE_BY in (SELECT id from users WHERE users.activated_by = '$login_id')")
-                @endphp
-            @else
-                @php
-                    $login_id = $_SESSION['admin_master']['id'];
-                        $workdone = \App\SchoolData::where(['IS_WORK_DONE' => 1, 'IS_OPEN' => 1,'WORK_DONE_BY'=>$login_id])->count();
-                @endphp
-            @endif
             @if($_SESSION['admin_master']['role'] == 'Super Admin')
+                @php
+                    $workdone = \App\SchoolData::where(['IS_WORK_DONE' => 1])->count();
+                @endphp
                 <div class="row">
                     <section id="menu1">
                         <div class="home_brics_row">
@@ -110,6 +98,10 @@
                     </section>
                 </div>
             @elseif($_SESSION['admin_master']['role'] == 'Group Admin')
+                @php
+                    $login_id = $_SESSION['admin_master']['id'];
+                        $workdone = DB::selectOne("SELECT COUNT(ID) as work_done FROM `datasample` WHERE WORK_DONE_BY in (SELECT id from users WHERE users.activated_by = '$login_id')")
+                @endphp
                 <div class="row">
                     <section id="menu2">
                         <div class="home_brics_row">
@@ -141,6 +133,9 @@
                     </section>
                 </div>
             @elseif($_SESSION['admin_master']['role'] == 'Quality Control')
+                @php
+                    $workdone = \App\SchoolData::where(['IS_WORK_DONE' => 1])->count();
+                @endphp
                 <div class="row">
                     <section id="menu3">
                         <div class="home_brics_row">
@@ -172,6 +167,10 @@
                     </section>
                 </div>
             @else
+                @php
+                    $login_id = $_SESSION['admin_master']['id'];
+                        $workdone = \App\SchoolData::where(['IS_WORK_DONE' => 1, 'WORK_DONE_BY'=>$login_id])->count();
+                @endphp
                 <div class="row">
                     <section id="menu4">
                         <div class="home_brics_row">

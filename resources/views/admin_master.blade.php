@@ -5,7 +5,7 @@
     }
 @endphp
 
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="{{url('assets/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/materialdesignicons.min.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/Dashboard.css')}}"/>
-{{--    <link rel="stylesheet" href="{{url('assets/css/Autocomplete.css')}}"/>--}}
+    {{--    <link rel="stylesheet" href="{{url('assets/css/Autocomplete.css')}}"/>--}}
     <link rel="stylesheet" href="{{url('assets/css/my.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/media.css')}}"/>
     {{--    <link rel="stylesheet" href="{{url('assets/css/w3.css')}}"/>--}}
-{{--    <link rel="stylesheet" href="{{url('assets/css/form-wizard-green.css')}}">--}}
+    {{--    <link rel="stylesheet" href="{{url('assets/css/form-wizard-green.css')}}">--}}
     <link rel="stylesheet" href="{{url('assets/css/dataTables.bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/text_editor.css')}}">
     <link href="{{ url('assets/css/datepicker.css') }}" rel="stylesheet">
@@ -32,7 +32,7 @@
     <script src="{{url('assets/js/bootstrap.min.js')}}"></script>
     <script src="{{url('assets/js/Global.js')}}"></script>
     <script src="{{url('assets/js/text_editor.js')}}"></script>
-{{--    <script src="{{url('assets/js/Autocomplete.js')}}"></script>--}}
+    {{--    <script src="{{url('assets/js/Autocomplete.js')}}"></script>--}}
     <script src="{{url('assets/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{url('assets/js/dataTables.bootstrap.min.js')}}"></script>
     {{---------------Notification---------------}}
@@ -768,27 +768,27 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 {{--<div id="inbox">--}}
-    {{--<div class="fab btn-group show-on-hover dropup">--}}
-        {{--<div data-toggle="tooltip" data-placement="left" title="Compose">--}}
-            {{--<button type="button" class="btn btn-danger btn-io dropdown-toggle" data-toggle="dropdown">--}}
-            {{--<span class="fa-stack fa-2x">--}}
-                {{--<i class="fa fa-circle fa-stack-2x fab-backdrop"></i>--}}
-                {{--<i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>--}}
-                {{--<i class="fa fa-pencil fa-stack-1x fa-inverse fab-secondary"></i>--}}
-            {{--</span>--}}
-            {{--</button>--}}
-        {{--</div>--}}
-        {{--<ul class="dropdown-menu dropdown-menu-right" role="menu">--}}
-            {{--<li style="display: none;"><a href="#" data-toggle="tooltip" data-placement="left" title="FullView"><i--}}
-                            {{--class="mdi mdi-fullscreen"></i></a></li>--}}
-            {{--<li><a href="#" onclick="toggleFullScreen(document.body);" data-toggle="tooltip" data-placement="left"--}}
-                   {{--title="FullView"><i class="mdi mdi-fullscreen"></i></a></li>--}}
-            {{--<li><a href="#" onclick="settings();" data-toggle="tooltip" data-placement="left" title="Settings"><i--}}
-                            {{--class="mdi mdi-account-settings-variant"></i></a></li>--}}
-            {{--<li><a href="{{url('/admin')}}" data-toggle="tooltip" data-placement="left" title="Dashboard"><i--}}
-                            {{--class="mdi mdi-speedometer"></i></a></li>--}}
-        {{--</ul>--}}
-    {{--</div>--}}
+{{--<div class="fab btn-group show-on-hover dropup">--}}
+{{--<div data-toggle="tooltip" data-placement="left" title="Compose">--}}
+{{--<button type="button" class="btn btn-danger btn-io dropdown-toggle" data-toggle="dropdown">--}}
+{{--<span class="fa-stack fa-2x">--}}
+{{--<i class="fa fa-circle fa-stack-2x fab-backdrop"></i>--}}
+{{--<i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>--}}
+{{--<i class="fa fa-pencil fa-stack-1x fa-inverse fab-secondary"></i>--}}
+{{--</span>--}}
+{{--</button>--}}
+{{--</div>--}}
+{{--<ul class="dropdown-menu dropdown-menu-right" role="menu">--}}
+{{--<li style="display: none;"><a href="#" data-toggle="tooltip" data-placement="left" title="FullView"><i--}}
+{{--class="mdi mdi-fullscreen"></i></a></li>--}}
+{{--<li><a href="#" onclick="toggleFullScreen(document.body);" data-toggle="tooltip" data-placement="left"--}}
+{{--title="FullView"><i class="mdi mdi-fullscreen"></i></a></li>--}}
+{{--<li><a href="#" onclick="settings();" data-toggle="tooltip" data-placement="left" title="Settings"><i--}}
+{{--class="mdi mdi-account-settings-variant"></i></a></li>--}}
+{{--<li><a href="{{url('/admin')}}" data-toggle="tooltip" data-placement="left" title="Dashboard"><i--}}
+{{--class="mdi mdi-speedometer"></i></a></li>--}}
+{{--</ul>--}}
+{{--</div>--}}
 {{--</div>--}}
 
 <div class="modal fade" id="myModalsmall" role="dialog">
@@ -864,7 +864,15 @@
             <li class="right_menu_li">
                 <a href="{{url('open_work')}}">
                     <i class="dash_arrow mdi mdi-clipboard-plus global_color"></i>
-                    <span class="aside_menu_txt">Open Works <span class="badge">{{$open_work_count>0?$open_work_count:''}}</span></span>
+                    <span class="aside_menu_txt">Open Works <span
+                                class="badge">{{$open_work_count>0?$open_work_count:''}}</span></span>
+                </a>
+            </li>
+            <li class="right_menu_li">
+                <a href="{{url('open_work_new')}}">
+                    <i class="dash_arrow mdi mdi-clipboard-plus global_color"></i>
+                    <span class="aside_menu_txt">Open New Works <span
+                                class="badge">{{$open_work_count>0?$open_work_count:''}}</span></span>
                 </a>
             </li>
             <li class="right_menu_li">

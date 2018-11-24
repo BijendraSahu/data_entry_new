@@ -35,15 +35,21 @@
                 </div>
             </div>
             <div class='form-group'>
-                {!! Form::label('contact', 'Paytm No *', ['class' => 'col-sm-4 control-label']) !!}
+                {!! Form::label('contact', 'Paytm No *', ['class' => 'col-sm-2 control-label']) !!}
                 <div class='col-sm-8'>
                     {!! Form::text('paytm', $user_master->paytm_no, ['class' => 'form-control input-sm contact required', 'placeholder'=>'Paytm No','maxlength'=>10]) !!}
                 </div>
             </div>
             <div class='form-group'>
-                {!! Form::label('contact', 'Email *', ['class' => 'col-sm-4 control-label']) !!}
+                {!! Form::label('contact', 'Email *', ['class' => 'col-sm-2 control-label']) !!}
                 <div class='col-sm-8'>
-                    {!! Form::text('email', $user_master->email, ['class' => 'form-control input-sm email', 'placeholder'=>'Email','maxlength'=>50]) !!}
+                    {!! Form::text('email', $user_master->email, ['class' => 'form-control input-sm required email', 'placeholder'=>'Email','maxlength'=>50]) !!}
+                </div>
+            </div>
+            <div class='form-group'>
+                {!! Form::label('contact', 'Password *', ['class' => 'col-sm-2 control-label']) !!}
+                <div class='col-sm-8'>
+                    {!! Form::text('password', $user_master->password, ['class' => 'form-control input-sm required', 'placeholder'=>'Password','maxlength'=>50]) !!}
                 </div>
             </div>
             <div class='form-group'>

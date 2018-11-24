@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{url('assets/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/materialdesignicons.min.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/Dashboard.css')}}"/>
-    {{--    <link rel="stylesheet" href="{{url('assets/css/Autocomplete.css')}}"/>--}}
+    {{--<link rel="stylesheet" href="{{url('assets/css/Autocomplete.css')}}"/>--}}
     <link rel="stylesheet" href="{{url('assets/css/my.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/media.css')}}"/>
     {{--    <link rel="stylesheet" href="{{url('assets/css/w3.css')}}"/>--}}
@@ -32,7 +32,7 @@
     <script src="{{url('assets/js/bootstrap.min.js')}}"></script>
     <script src="{{url('assets/js/Global.js')}}"></script>
     <script src="{{url('assets/js/text_editor.js')}}"></script>
-    {{--    <script src="{{url('assets/js/Autocomplete.js')}}"></script>--}}
+    {{--<script src="{{url('assets/js/Autocomplete.js')}}"></script>--}}
     <script src="{{url('assets/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{url('assets/js/dataTables.bootstrap.min.js')}}"></script>
     {{---------------Notification---------------}}
@@ -840,59 +840,8 @@
             <li class="right_menu_li">
                 <a href="{{url('admin')}}">
                     {{--     <a href="{{url('/userlist')}}">--}}
-                    <i class="dash_arrow mdi mdi-account-multiple global_color"></i>
+                    <span class="dash_arrow mdi mdi-account-multiple global_color"></span>
                     <span class="aside_menu_txt">Dashboard</span>
-                </a>
-            </li>
-            <li class="right_menu_li">
-                <a href="{{url('user_master?type=user')}}">
-                    <i class="dash_arrow mdi mdi-account-multiple global_color"></i>
-                    <span class="aside_menu_txt">All Users</span></a>
-            </li>
-            <li class="right_menu_li">
-                <a href="{{url('user_master?type=admin')}}">
-                    <i class="dash_arrow mdi mdi-clipboard-plus global_color"></i>
-                    <span class="aside_menu_txt">Group Admin</span>
-                </a>
-            </li>
-            <li class="right_menu_li">
-                <a href="{{url('works')}}">
-                    <i class="dash_arrow mdi mdi-clipboard-plus global_color"></i>
-                    <span class="aside_menu_txt">All Works</span>
-                </a>
-            </li>
-            <li class="right_menu_li">
-                <a href="{{url('open_work')}}">
-                    <i class="dash_arrow mdi mdi-clipboard-plus global_color"></i>
-                    <span class="aside_menu_txt">Open Works <span
-                                class="badge">{{$open_work_count>0?$open_work_count:''}}</span></span>
-                </a>
-            </li>
-            <li class="right_menu_li">
-                <a href="{{url('open_work_new')}}">
-                    <i class="dash_arrow mdi mdi-clipboard-plus global_color"></i>
-                    <span class="aside_menu_txt">Open New Works <span
-                                class="badge">{{$open_work_count>0?$open_work_count:''}}</span></span>
-                </a>
-            </li>
-            <li class="right_menu_li">
-                <a href="{{url('work_done')}}">
-                    <i class="dash_arrow mdi mdi-clipboard-plus global_color"></i>
-                    <span class="aside_menu_txt">Work Done</span>
-                </a>
-            </li>
-            <li class="right_menu_li">
-                <a href="{{url('report_d')}}">
-                    {{--     <a href="{{url('/userlist')}}">--}}
-                    <i class="dash_arrow mdi mdi-account-multiple global_color"></i>
-                    <span class="aside_menu_txt">Work Reports</span>
-                </a>
-            </li>
-            <li class="right_menu_li">
-                <a href="{{url('date_wise_report')}}">
-                    {{--     <a href="{{url('/userlist')}}">--}}
-                    <i class="dash_arrow mdi mdi-account-multiple global_color"></i>
-                    <span class="aside_menu_txt">Date Wise Report</span>
                 </a>
             </li>
             <li class="right_menu_li">
@@ -901,6 +850,85 @@
                     <i class="dash_arrow mdi mdi-email global_color"></i>
                     <span class="aside_menu_txt">Notification</span>
                 </a>
+            </li>
+            <li class="right_menu_li" onclick="MenuClick(this);">
+                <a href="javascript:;">
+                    <i class="dash_arrow mdi mdi-sitemap  global_color"></i>
+                    Users Menu
+                    <i class="mdi mdi-chevron-right icon-left-arrow"></i>
+                </a>
+                <ul class="list-group dash_sub_menu">
+                    <li>
+                        <a href="{{url('user_master?type=user')}}">All Users</a>
+                    </li>
+                    <li>
+                        <a href="{{url('user_master?type=admin')}}">Group Admin</a>
+                    </li>
+                </ul>
+            </li>
+            {{--<li class="right_menu_li">--}}
+            {{--<a href="{{url('works')}}">--}}
+            {{--<i class="dash_arrow mdi mdi-clipboard-plus global_color"></i>--}}
+            {{--<span class="aside_menu_txt">All Works</span>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+
+            {{--<li class="right_menu_li">--}}
+            {{--<a href="{{url('open_work_new')}}">--}}
+            {{--<i class="dash_arrow mdi mdi-clipboard-plus global_color"></i>--}}
+            {{--<span class="aside_menu_txt">Open New Works <span--}}
+            {{--class="badge">{{$open_work_count>0?$open_work_count:''}}</span></span>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+
+            <li class="right_menu_li" onclick="MenuClick(this);">
+                <a href="javascript:;">
+                    <i class="dash_arrow mdi mdi-sitemap  global_color"></i>
+                    Works Menu
+                    <i class="mdi mdi-chevron-right icon-left-arrow"></i>
+                </a>
+                <ul class="list-group dash_sub_menu">
+                    <li>
+                        <a href="{{url('works')}}">All Works</a>
+                    </li>
+                    <li>
+                        <a href="{{url('work_done')}}">Work Done</a>
+                    </li>
+                    <li>
+                        <a href="{{url('open_work')}}">Open Works <span
+                                    class="badge">{{$open_work_count>0?$open_work_count:''}}</span></a>
+                    </li>
+                    <li>
+                        <a href="{{url('show_work')}}">Districts Works</a>
+                    </li>
+                </ul>
+            </li>
+            {{--<li class="right_menu_li">--}}
+            {{--<a href="{{url('open_work')}}">--}}
+            {{--<i class="dash_arrow mdi mdi-clipboard-plus global_color"></i>--}}
+            {{--<span class="aside_menu_txt">Open Works <span--}}
+            {{--class="badge">{{$open_work_count>0?$open_work_count:''}}</span></span>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+
+
+            <li class="right_menu_li" onclick="MenuClick(this);">
+                <a href="javascript:;">
+                    <i class="dash_arrow mdi mdi-sitemap  global_color"></i>
+                    Reports
+                    <i class="mdi mdi-chevron-right icon-left-arrow"></i>
+                </a>
+                <ul class="list-group dash_sub_menu">
+                    <li>
+                        <a href="{{url('report_d')}}">Work Reports</a>
+                    </li>
+                    <li>
+                        <a href="{{url('date_wise_report')}}">Date Wise Report</a>
+                    </li>
+                    <li>
+                        <a href="{{url('payment_history')}}">Payment History</a>
+                    </li>
+                </ul>
             </li>
         @elseif($LoginUser->role == 'Group Admin')
             <li class="right_menu_li">
@@ -919,6 +947,13 @@
                 <a href="{{url('work_done')}}">
                     <i class="dash_arrow mdi mdi-clipboard-plus global_color"></i>
                     <span class="aside_menu_txt">Work Done</span>
+                </a>
+            </li>
+            <li class="right_menu_li">
+                <a href="{{url('payment_history')}}">
+                    {{--     <a href="{{url('/userlist')}}">--}}
+                    <i class="dash_arrow mdi mdi-account-multiple global_color"></i>
+                    <span class="aside_menu_txt">Payment History</span>
                 </a>
             </li>
 
@@ -1079,6 +1114,13 @@
                     <span class="aside_menu_txt">My Work</span>
                 </a>
             </li>
+            <li class="right_menu_li">
+                <a href="{{url('payment_history')}}">
+                    {{--     <a href="{{url('/userlist')}}">--}}
+                    <i class="dash_arrow mdi mdi-account-multiple global_color"></i>
+                    <span class="aside_menu_txt">Payment History</span>
+                </a>
+            </li>
 
         @endif
 
@@ -1120,7 +1162,18 @@
 <div class="overlay_res" onclick="HideTranparent();"></div>
 <div id="snackbar">New Categories added Successfully</div>
 <script src="{{ url('assets/js/bootstrap-datepicker.js') }}"></script>
+<script src="{{ url('assets/js/jquery.table2excel.js') }}"></script>
 <script>
+    function exporttoexcel() {
+//        $('.export_hide').remove();
+        $("#example").table2excel({
+            filename: "client_request.csv"
+        });
+//        setTimeout(function () {
+//            window.location.reload();
+//        }, 200);
+
+    }
     $(function () {
         $('.dtp').datepicker({
             format: "dd-MM-yyyy",

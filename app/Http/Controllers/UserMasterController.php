@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\AdminModel;
 use App\GainTypePoints;
+use App\PaymentHistory;
 use App\Reffer;
 use App\RoleMaster;
+use App\SchoolData;
 use App\UserBankDetails;
 use App\UserKey;
 use App\UserMaster;
@@ -35,6 +37,40 @@ class UserMasterController extends Controller
     {
 //        $role_masters = RoleMaster::getRoleDropdown();
         return view('user.create_user_master');
+    }
+
+    public function paynow($user_id)
+    {
+        $work_count = SchoolData::where(['IS_WORK_DONE' => 1, 'WORK_DONE_BY' => $user_id])->count();
+        $user = UserMaster::find($user_id);
+        return view('payment.paynow')->with(['work_count' => $work_count, 'user_id' => $user_id, 'user' => $user]);
+    }
+
+    public function paynow_save($user_id)
+    {
+//        $work_count = $work_count = SchoolData::where(['IS_WORK_DONE' => 1, 'WORK_DONE_BY' => $user_id])->count();
+        $user = UserMaster::find($user_id);
+        $payment_his = new PaymentHistory();
+        $payment_his->user_id = $user_id;
+        $payment_his->paytm_no = $user->paytm_no;
+        $payment_his->pay_for_count = request('pay_for');
+        $payment_his->rate = request('rate');
+        $payment_his->payable_amount = request('payable_amount');
+        $payment_his->remark = request('remark');
+        $payment_his->created_time = Carbon::now('Asia/Kolkata');
+        $payment_his->save();
+        return redirect('payment_history')->with('message', 'Amount has been paid...!');
+    }
+
+    public function payment_history()
+    {
+        if ($_SESSION['admin_master']->role == 'Super Admin') {
+            $payments = PaymentHistory::orderby('id', 'desc')->get();
+            return view('payment.payment_history')->with(['payments' => $payments]);
+        } else {
+            $payments = PaymentHistory::where(['user_id' => $_SESSION['admin_master']->id])->orderby('id', 'desc')->get();
+            return view('payment.payment_history')->with(['payments' => $payments]);
+        }
     }
 
     public function store(Request $request)

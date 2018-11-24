@@ -16,4 +16,16 @@ class SchoolData extends Model
     {
         return $this->belongsTo('App\UserMaster', 'WORK_DONE_BY');
     }
+
+    public function lock($value = true)
+    {
+        $this->lock = $value;
+        return $this;
+    }
+
+    public function scopelockForUpdate()
+    {
+        return $this->lock(true);
+    }
+
 }

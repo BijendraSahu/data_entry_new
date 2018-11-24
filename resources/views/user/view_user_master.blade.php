@@ -30,17 +30,16 @@
                             <thead>
                             <tr class="bg-info">
                                 <th class="options">Options @if($_SESSION['admin_master']->role == 'Super Admin')
-                                        <input
-                                                type="checkbox" id="chkParent"/> @endif </th>
-                                <th>Profile</th>
-                                <th>User Id</th>
+                                        <input type="checkbox" id="chkParent"/> @endif </th>
+                                {{--<th>Profile</th>--}}
                                 <th>Name</th>
-                                <th>Contact</th>
-                                {{--<th>Paytm No</th>--}}
+                                {{--<th>Contact</th>--}}
+                                <th>Paytm No</th>
                                 <th>Username</th>
-                                {{--<th>Password</th>--}}
+                                {{--<th style="min-width: 130px">Password</th>--}}
                                 <th>Role</th>
                                 <th>Work Count</th>
+                                <th>Paid Count</th>
                                 <th>Group Admin</th>
                                 <th>Active Status</th>
                                 <th>Joining Date</th>
@@ -62,6 +61,9 @@
                                         @endphp
 
                                     @endif
+                                    @php
+                                        $paid_count = \App\PaymentHistory::where(['user_id' => $user_master->id])->sum('pay_for_count');
+                                    @endphp
                                     <tr>
                                         <td id="{{$user_master->id}}">
                                             @if($_SESSION['admin_master']->role == 'Super Admin')   <input
@@ -73,6 +75,10 @@
                                                class="btn btn-xs btn-default edit-user_"
                                                title="Edit User" data-toggle="tooltip" data-placement="top">
                                                 <span class="fa fa-pencil"></span></a>
+                                            <a href="#" id="{{$user_master->id}}" onclick="paynow(this)"
+                                               class="btn btn-xs btn-primary edit-user_"
+                                               title="Paynow" data-toggle="tooltip" data-placement="top">
+                                                <span class="fa fa-money"></span></a>
                                             @if($user_master->is_active == 1)
                                                 <a href="#" id="{{$user_master->id}}" onclick="inactive_user(this)"
                                                    class="btn btn-xs btn-danger"
@@ -96,25 +102,25 @@
                                             {{--<span class="mdi mdi-remote"></span></a>--}}
 
                                         </td>
-                                        <td>
-                                            <div class="post_imgblock_admin">
-                                                @if(isset($user_master->profile_img))
-                                                    <img style="height: 100%; width: 100%"
-                                                         src="{{url('').'/'.$user_master->profile_img}}"/>
-                                                @else
-                                                    <img style="height: 100%; width: 100%"
-                                                         src="{{url('assets/images/Male_default.png')}}"/>
-                                                @endif
+                                        {{--<td>--}}
+                                        {{--<div class="post_imgblock_admin">--}}
+                                        {{--@if(isset($user_master->profile_img))--}}
+                                        {{--<img style="height: 100%; width: 100%"--}}
+                                        {{--src="{{url('').'/'.$user_master->profile_img}}"/>--}}
+                                        {{--@else--}}
+                                        {{--<img style="height: 100%; width: 100%"--}}
+                                        {{--src="{{url('assets/images/Male_default.png')}}"/>--}}
+                                        {{--@endif--}}
 
-                                            </div>
-                                        </td>
-                                        <td>{{$user_master->id}}</td>
-                                        <td>{{$user_master->name}}</td>
-                                        <td>{{$user_master->contact}}</td>
+                                        {{--</div>--}}
+                                        {{--</td>--}}
+                                        <td>{{$user_master->name}}({{$user_master->id}})</td>
+                                        <td>{{isset($user_master->paytm_no)?$user_master->paytm_no:'N/A'}}</td>
                                         <td>{{$user_master->username}}</td>
-{{--                                        <td>{{$user_master->password}}</td>--}}
+                                                                                {{--<td>{{$user_master->password}}</td>--}}
                                         <td>{{$user_master->role}}</td>
                                         <td>{{$work_count}} {{--<a href="#" class="label label-primary" --}}{{--onclick="pay_now();"--}}{{-->Pay Now</a>--}}</td>
+                                        <td>{{$paid_count}}</td>
                                         <td>{{isset($user_master->activated_by)?$user_master->activate_by_name->name:'-'}}</td>
                                         {{--<td>{{$user_master->paytm_contact}}</td>--}}
                                         {{--<td>{{$user_master->points}}</td>--}}
@@ -309,6 +315,27 @@
             $('#mybody').html('<img height="50px" class="center-block" src="{{url('assets/images/loading.gif')}}"/>');
             var id = $(dis).attr('id');
             var editurl = '{{ url('/') }}' + "/user_master/" + id + "/edit";
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                url: editurl,
+                data: '{"data":"' + id + '"}',
+                success: function (data) {
+                    $('#mybody').html(data);
+                },
+                error: function (xhr, status, error) {
+                    $('#mybody').html(xhr.responseText);
+//$('.modal-body').html("Technical Error Occured!");
+                }
+            });
+        }
+
+        function paynow(dis) {
+            $('#myModal').modal('show');
+            $('#modal_title').html('Pay Now');
+            $('#mybody').html('<img height="50px" class="center-block" src="{{url('assets/images/loading.gif')}}"/>');
+            var id = $(dis).attr('id');
+            var editurl = '{{ url('/') }}' + "/paynow/" + id;
             $.ajax({
                 type: "GET",
                 contentType: "application/json; charset=utf-8",

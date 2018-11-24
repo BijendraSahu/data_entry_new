@@ -77,6 +77,14 @@ Route::get('user_master/{id}/inactivate', 'UserMasterController@inactivate');
 Route::get('user_master/{id}/empty', 'UserMasterController@empty_point');
 Route::get('user_master/{id}/remind', 'UserMasterController@reminder_points');
 Route::post('send_notification', 'UserMasterController@send_notification');
+Route::get('paynow/{id}', 'UserMasterController@paynow');
+Route::post('paynow/{id}', 'UserMasterController@paynow_save');
+Route::get('payment_history', 'UserMasterController@payment_history');
+
+
+Route::get('show_work', 'WorkController@show_work');
+Route::get('edit_show_work', 'WorkController@edit_show_work');
+Route::post('update_show_work', 'WorkController@update_show_work');
 
 /*********Users***********/
 

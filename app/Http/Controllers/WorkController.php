@@ -96,25 +96,14 @@ class WorkController extends Controller
 
     public function start_work()
     {
-        $work_data = SchoolData::where(['IS_OPEN' => 0, 'is_file_exist' => 0])->orderBy('ID', 'ASC')->first();
+//        $work_data = SchoolData::where(['IS_OPEN' => 0, 'is_file_exist' => 0])->orderBy('ID', 'ASC')->first();
+        $show_work = DB::selectOne("SELECT * FROM show_district");
+        $work_data = DB::selectOne("select * from datasample where is_open=0 and districtid in ($show_work->districtid) ORDER BY RAND()");
         if (isset($work_data)) {
-//            if (file_exists("http://data.mitradatacare.com/$work_data->IMAGE_PATH")) {
-                $data = SchoolData::find($work_data->ID);
-                $data->IS_OPEN = 1;
-                $data->save();
-                return view('work.create_work')->with(['work_data' => $work_data]);
-//            } else {
-//                $data = SchoolData::find($work_data->ID);
-//                $data->IS_OPEN = 0;
-//                $data->is_file_exist = 1;
-//                $data->save();
-//                $this->start_work();
-//            }
-//            if (!file_exists(url('') . '/' . $work_data->IMAGE_PATH)) {
-//                return view('work.create_work')->with(['work_data' => $work_data]);
-//            } else {
-//                $this->start_work();
-//            }
+            $data = SchoolData::find($work_data->ID);
+            $data->IS_OPEN = 1;
+            $data->save();
+            return view('work.create_work')->with(['work_data' => $work_data]);
 //            if (file_exists(public_path("BSGP_2018/1001/2_1.jpg"))) {
 ////            return view('work.create_work')->with(['work_data' => $work_data]);
 //                echo "exist";
@@ -165,4 +154,25 @@ class WorkController extends Controller
 //ALTER TABLE `datasample` CHANGE `READTIME` `READTIME` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP;
 //update datasample set IMAGE_PATH= replace(IMAGE_PATH,'\\','/')
 //ALTER TABLE `datasample` ADD `is_file_exist` BIT(1) NOT NULL DEFAULT b'0' AFTER `f106`;
+
+    public function show_work()
+    {
+        $work_data = DB::select("SELECT * FROM show_district");
+        return view('show_work.view_show_work')->with(['work_data' => $work_data]);
+    }
+
+    public function edit_show_work()
+    {
+        $district = DB::select("SELECT * FROM `district`");
+        $work_data = DB::selectOne("SELECT * FROM show_district");
+        return view('show_work.edit_show_work')->with(['work_data' => $work_data, 'district' => $district]);
+    }
+
+    public function update_show_work()
+    {
+        $str_arr = implode(", ", request('district_ids'));
+        $qry = DB::select("UPDATE `show_district` SET `districtid` = '$str_arr' WHERE `show_district`.`id` = 1;");
+        return redirect('show_work')->with('message', 'District has been updated');
+    }
+
 }

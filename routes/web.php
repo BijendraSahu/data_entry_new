@@ -37,7 +37,8 @@ Route::get('registration', 'AdminController@registration');
 Route::post('registration', 'AdminController@save_registration');
 
 Route::get('date_wise_report', 'WorkController@date_wise_report');
-Route::post('date_wise_report', 'WorkController@search_date_wise_report');
+Route::post('search_date_wise_report', 'WorkController@search_date_wise_report');
+Route::get('s_date_wise_report', 'WorkController@s_date_wise_report');
 
 
 Route::get('insert_url_data', 'APIController@insert_url_data');

@@ -136,9 +136,12 @@ class WorkController extends Controller
 
     public function date_wise_report()
     {
+        $_SESSION['start_date'] = null;
+        $_SESSION['e_date'] = null;
+        $_SESSION['user_id'] = null;
         $work_data = SchoolData::where(['IS_WORK_DONE' => 1])->paginate(8);
         $users = UserMaster::getActiveUserMaster();
-        return view('reports.date_wise_report')->with(['work_data' => [], 'users' => $users, 'group' => 'group']);
+        return view('reports.date_wise_report')->with(['work_data' => [], 'users' => $users, 'group' => 'group', 'user_id' => 0]);
     }
 
     public function search_date_wise_report()
@@ -147,10 +150,30 @@ class WorkController extends Controller
         $end_date = Carbon::parse(request('end_date'))->format('Y-m-d');
         $e_date = $end_date . ' 23:59:00';
         $user_id = request('user_id');
-        $users = UserMaster::getActiveUserMaster();
-        $work_data = SchoolData::where('READTIME', '>=', $start_date)->where('READTIME', '<=', $e_date)->where(['IS_WORK_DONE' => 1, 'WORK_DONE_BY' => $user_id])->paginate(8);
-        return view('reports.date_wise_report')->with(['work_data' => $work_data, 'users' => $users]);
+        $_SESSION['start_date'] = null;
+        $_SESSION['e_date'] = null;
+        $_SESSION['user_id'] = null;
+        $_SESSION['start_date'] = $start_date;
+        $_SESSION['e_date'] = $e_date;
+        $_SESSION['user_id'] = $user_id;
+        return redirect('s_date_wise_report')->with(['start_date' => $start_date, 'e_date' => $e_date, 'user_id' => $user_id]);
     }
+
+    public function s_date_wise_report()
+    {
+        $start_date = $_SESSION['start_date'];
+        $e_date = $_SESSION['e_date'];
+        $user_id = $_SESSION['user_id'];
+        $users = UserMaster::getActiveUserMaster();
+        if ($user_id > 0)
+            $work_data = SchoolData::where('READTIME', '>=', $start_date)->where('READTIME', '<=', $e_date)->where(['IS_WORK_DONE' => 1, 'WORK_DONE_BY' => $user_id])->paginate(8);
+        else
+            $work_data = SchoolData::where('READTIME', '>=', $start_date)->where('READTIME', '<=', $e_date)->where(['IS_WORK_DONE' => 1])->paginate(8);
+
+        return view('reports.date_wise_report')->with(['work_data' => $work_data, 'users' => $users, 'start_date' => $start_date, 'e_date' => $e_date, 'user_id' => $user_id]);
+    }
+
+
 //ALTER TABLE `datasample` CHANGE `READTIME` `READTIME` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP;
 //update datasample set IMAGE_PATH= replace(IMAGE_PATH,'\\','/')
 //ALTER TABLE `datasample` ADD `is_file_exist` BIT(1) NOT NULL DEFAULT b'0' AFTER `f106`;

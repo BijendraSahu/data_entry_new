@@ -51,7 +51,7 @@
 
                     </span>
                                 <section id="user_table" class="table_main_containner">
-                                    <form action="{{url('date_wise_report')}}" method="post"
+                                    <form action="{{url('search_date_wise_report')}}" method="post"
                                           enctype="multipart/form-data" id="search_date_wise_report">
                                         <div class="col-sm-12">
                                             <div class="col-sm-3">
@@ -59,19 +59,22 @@
                                                 <input type="text" placeholder="Start Date"
                                                        data-format="dd/MM/yyyy hh:mm:ss" autocomplete="off"
                                                        class="form-control dtp required"
-                                                       name="start_date"/>
+                                                       name="start_date"
+                                                       value="{{isset($start_date)?date_format(date_create($start_date), "d-M-Y"):''}}"/>
                                             </div>
                                             <div class="col-sm-3">
                                                 <label for="">End Date</label>
                                                 <input type="text" placeholder="End Date"
                                                        class="form-control dtp required"
-                                                       autocomplete="off" name="end_date"/>
+                                                       autocomplete="off" name="end_date"
+                                                       value="{{isset($e_date)?date_format(date_create($e_date), "d-M-Y"):''}}"/>
                                             </div>
                                             <div class="col-sm-3">
                                                 <label for="">Select Users</label>
-                                                <select name="user_id" id="user_id" class="form-control requiredDD">
+                                                <select name="user_id" id="user_id" class="form-control">
+                                                    <option value="0">All</option>
                                                     @foreach($users as $user)
-                                                        <option value="{{$user->id}}">{{$user->name}}{{"-".$user->contact}}</option>
+                                                        <option value="{{$user->id}}" {{$user->id==$user_id?'selected':''}} >{{$user->name}}{{"-".$user->contact}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
